@@ -1,0 +1,20 @@
+{
+  "name": "SIA",
+  "description": "Skills para construir um site em linguagem simples.",
+  "owner": {
+    "name": "SIA"
+  },
+  "plugins": [
+    {
+      "name": "sia",
+      "description": "Entender, combinar, desenhar, provar e publicar um site. Supabase e Vercel entram como sugestão.",
+      "version": "0.1.0",
+      "license": "MIT",
+      "keywords": ["site", "web", "supabase", "vercel"],
+      "source": {
+        "type": "local",
+        "path": "./plugins/sia"
+      }
+    }
+  ]
+}

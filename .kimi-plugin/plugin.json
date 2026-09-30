@@ -1,0 +1,12 @@
+{
+  "name": "sia",
+  "version": "0.1.0",
+  "description": "Ajuda a construir um site em linguagem simples: combinado, cara das telas, prova antes do código.",
+  "license": "MIT",
+  "keywords": ["site", "web", "supabase", "vercel"],
+  "skills": "./plugins/sia/skills/",
+  "sessionStart": {
+    "skill": "comecar"
+  },
+  "skillInstructions": "Mapa SIA no Kimi: skill pelo Skill; arquivo por Read, Write e Edit; comando por Bash; texto por Grep; arquivo por Glob; lista por TodoList; pergunta com opções por AskUserQuestion (uma pergunta, 2 a 4 opções, a recomendada primeiro); URL por FetchURL; web por WebSearch; subagente por Agent (coder para implementar ou revisar, explore para olhar, plan para planejar). Sem AskUserQuestion, pergunte no chat, uma vez. MCP de Supabase e Vercel pelo nome real da ferramenta."
+}

@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# Entrega a skill comecar no SessionStart.
+# Claude lê hookSpecificOutput.additionalContext.
+# Outros leitores do padrão SDK leem additionalContext.
+# O Grok ignora o stdout deste evento. Lá, quem acorda o loop é a description.
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+
+skill="$(cat "${ROOT}/skills/comecar/SKILL.md")"
+
+map_file=""
+if [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ -z "${COPILOT_CLI:-}" ]; then
+  map_file="${ROOT}/skills/comecar/references/claude.md"
+elif [ -n "${KIMI_PLUGIN_ROOT:-}${KIMI_CODE:-}" ]; then
+  map_file="${ROOT}/skills/comecar/references/kimi.md"
+fi
+
+map=""
+if [ -n "${map_file}" ] && [ -f "${map_file}" ]; then
+  map="$(cat "${map_file}")"
+fi
+
+body="<EXTREMELY_IMPORTANT>
+Você tem o SIA.
+
+Abaixo está a skill comecar. Para as outras skills, invoque pelo mecanismo deste agente. Não escreva código de produto antes da skill que a ordem manda.
+
+${skill}"
+
+if [ -n "${map}" ]; then
+  body="${body}
+
+Mapa deste agente:
+
+${map}"
+fi
+
+body="${body}
+</EXTREMELY_IMPORTANT>"
+
+escape_for_json() {
+  local s="$1"
+  s="${s//\\/\\\\}"
+  s="${s//\"/\\\"}"
+  s="${s//$'\n'/\\n}"
+  s="${s//$'\r'/\\r}"
+  s="${s//$'\t'/\\t}"
+  printf '%s' "$s"
+}
+
+escaped="$(escape_for_json "${body}")"
+
+if [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ -z "${COPILOT_CLI:-}" ]; then
+  printf '{\n  "hookSpecificOutput": {\n    "hookEventName": "SessionStart",\n    "additionalContext": "%s"\n  }\n}\n' "${escaped}"
+else
+  printf '{\n  "additionalContext": "%s"\n}\n' "${escaped}"
+fi
+
+exit 0

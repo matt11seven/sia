@@ -1,0 +1,6 @@
+references/superpowers/
+references/caveman/
+references/ui-ux-pro-max-skill/
+.DS_Store
+*.pyc
+__pycache__/

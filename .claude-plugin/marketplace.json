@@ -1,0 +1,16 @@
+{
+  "name": "sia",
+  "description": "Skills para construir um site com quem não programa.",
+  "owner": {
+    "name": "SIA"
+  },
+  "plugins": [
+    {
+      "name": "sia",
+      "description": "Entender, combinar, desenhar, provar e publicar um site.",
+      "version": "0.1.0",
+      "source": "./plugins/sia",
+      "license": "MIT"
+    }
+  ]
+}

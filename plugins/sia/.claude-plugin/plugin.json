@@ -1,0 +1,7 @@
+{
+  "name": "sia",
+  "description": "Ajuda a construir um site em linguagem simples: combinado, cara das telas, prova antes do código, Supabase e Vercel como sugestão.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "keywords": ["site", "web", "supabase", "vercel", "tdd"]
+}

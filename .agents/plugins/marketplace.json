@@ -1,0 +1,20 @@
+{
+  "name": "sia",
+  "interface": {
+    "displayName": "SIA"
+  },
+  "plugins": [
+    {
+      "name": "sia",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sia"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}
