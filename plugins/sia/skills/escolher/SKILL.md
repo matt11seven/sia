@@ -25,7 +25,8 @@ Para cada linha, pare na primeira regra que couber.
 3. Não guarda dado de ninguém e não precisa de conta. Dados: não guarda.
 4. Precisa guardar dado e ninguém escolheu. Se a cara ainda não teve o sim, escreva "ainda não" e não pergunte. Na entrada da prova, sugira Supabase. Na mesma frase, a segunda opção: Postgres com Drizzle no projeto. Uma pergunta. Espere.
 5. Há tela web, o sistema é novo e ninguém escolheu com o que ele é feito. Se a cara ainda não teve o sim, escreva "ainda não" e não pergunte. Na entrada da prova, sugira a base abaixo, com Supabase na frente. Uma pergunta. Espere. Sem tela, não proponha Next.js, Tailwind nem Vercel.
-6. Precisa ficar acessível fora da máquina de quem constrói, e ninguém escolheu onde. Se há tela web, sugira Vercel e, na mesma frase, outro lugar que a pessoa já use. Se não há tela, pergunte onde deve rodar: a máquina dela ou um servidor que ela já tenha. Essa pergunta espera a pessoa querer que outros acessem.
+6. Não há tela, o sistema é novo (uma API, uma rotina, uma integração) e ninguém escolheu com o que ele é feito. Se a cara ainda não teve o sim, escreva "ainda não" e não pergunte. Na entrada da prova, sugira TypeScript em Node.js, porque a prova da regra já é Vitest. Se a pessoa já trabalha com outra linguagem, ofereça essa na mesma frase. Uma pergunta, junto com a de dados se ela também couber. Espere. Com a resposta, nenhuma linha fica em "ainda não", e `planejar` segue.
+7. Precisa ficar acessível fora da máquina de quem constrói, e ninguém escolheu onde. Se há tela web, sugira Vercel e, na mesma frase, outro lugar que a pessoa já use. Se não há tela, pergunte onde deve rodar: a máquina dela ou um servidor que ela já tenha. Essa pergunta espera a pessoa querer que outros acessem.
 
 Não crie tabela nem rode `publicar` nesta skill. Se a linha `Dados` ficou Supabase, invoque `dados` só para ligar, na hora. A pessoa não escolhe a ligação à parte.
 
@@ -58,6 +59,18 @@ Quando a pessoa aceita a base de tela web, as linhas ficam:
 
 Se ela escolhe a segunda opção de dados, `Dados` fica `Postgres com Drizzle`. A chave do Supabase e a `DATABASE_URL` não vão para o browser.
 
+Com Supabase, `dados` acrescenta `Projeto Supabase: <nome> (<id>)` depois que a pessoa escolhe o projeto. Esta skill não escolhe projeto.
+
+Quando é um sistema novo sem tela, as linhas ficam:
+
+```markdown
+- Sistema: TypeScript em Node.js
+- Dados: Supabase
+- Prova: Vitest na regra, Playwright no sistema se outro sistema chama uma entrada
+- Onde roda: ainda não
+- Uso: novo
+```
+
 ## Uso
 
 A linha `Uso` nasce com o arquivo.
@@ -66,11 +79,12 @@ A linha `Uso: novo` do modelo vale para pasta nova. Se o repositório já tem c�
 
 - Pasta nova, ou sistema que ainda não tem gente usando: `Uso: novo`. Sem pergunta.
 - A pessoa diz que gente já usa, ou `Onde roda` já é um endereço de verdade: `Uso: ativo`.
+- Pasta nova não decide sozinha quando o banco já existe. Se o projeto Supabase escolhido tem tabela com dado, `dados` troca para `Uso: ativo`.
 - Repositório com código e sem essa linha: não invente. `dados` pergunta uma vez, antes de escrever no banco.
 
 ## Base sugerida
 
-Fale uma vez, quando a regra 4 ou a 5 mandar perguntar. Não instale na mesma mensagem.
+Fale uma vez, quando a regra 4, a 5 ou a 6 mandar perguntar. Não instale na mesma mensagem.
 
 Com tela web:
 
@@ -78,7 +92,11 @@ Com tela web:
 
 Sem tela, e com dado para guardar:
 
-> Os dados ficam no Supabase. A outra opção é Postgres com Drizzle no projeto. A regra se prova num teste rápido. Se algo de fora chama o sistema, o teste do sistema faz essa chamada de verdade. Serve o Supabase?
+> Eu faço em TypeScript, rodando em Node.js. Os dados ficam no Supabase. A outra opção é Postgres com Drizzle no projeto. A regra se prova num teste rápido. Se algo de fora chama o sistema, o teste do sistema faz essa chamada de verdade. Serve assim?
+
+Sem tela e sem dado:
+
+> Eu faço em TypeScript, rodando em Node.js, e a regra se prova num teste rápido. Serve assim?
 
 Sem tela e sem dado, a prova é Vitest. Não ofereça Playwright de browser nem Next.js. Playwright de sistema só se existir uma entrada que outro sistema chama.
 

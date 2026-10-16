@@ -35,7 +35,9 @@ Pular um passo é afirmar no escuro.
 
 Se existir `AGENTS.md` na raiz, os comandos da seção Prova são os que você roda. Não invente outro.
 
-Se existir plano em `docs/sia/planos/`, cada parte precisa da linha `Parte N: pronta (<comando> → <resultado>)` em `docs/sia/andamento.md`. Parte com checkbox aberto, ou sem comando e resultado, bloqueia "ficou pronto". Parte adiada no andamento não entra nessa conta.
+O plano que conta é o da primeira linha de `docs/sia/andamento.md`. Plano antigo, de outra rodada, não bloqueia. Se existir esse plano, cada parte dele precisa da linha `Parte N: pronta (<comando> → <resultado>)` em `docs/sia/andamento.md`. Parte com checkbox aberto, ou sem comando e resultado, bloqueia "ficou pronto". Parte adiada no andamento não entra nessa conta.
+
+Se `docs/sia/combinado.md` está na forma cheia (tem "Quem usa e o que precisa fazer"), precisa existir em `docs/sia/planos/` um plano com a linha `**Combinado:** docs/sia/combinado.md`. Sem esse plano, o trabalho foi tratado como mudança pequena sem ser. Isso bloqueia "ficou pronto". Diga numa frase que a lista ficou faltando, volte para `planejar` e escreva o plano do que já existe e do que falta. Não apague o código que já passou na prova.
 
 ## O que cada frase exige
 
@@ -44,8 +46,8 @@ Se existir plano em `docs/sia/planos/`, cada parte precisa da linha `Parte N: pr
 | Os testes passaram | saída do comando de teste, zero falhas, nesta conversa | uma corrida antiga |
 | O código está no formato | se `Sistema` em `docs/sia/escolhas.md` incluir ESLint: o lint rodado agora, zero erros. Se incluir TypeScript: a checagem de tipo rodada agora, zero erros | o lint no lugar da suíte. Sem esses dois na base, esta linha não se aplica. Sem piso de cobertura |
 | O bug sumiu | a prova do sintoma original, verde, depois de ter falhado | o código mudou |
-| A tela está certa | o Playwright de quem usa, rodado agora, e a tela aberta no fluxo principal, no vazio e no erro, em 375 e em 1280, com teclado, foco visível e console limpo | o Vitest sozinho. Sem tela no combinado, esta linha não se aplica |
-| O sistema cruzou a fronteira | o Playwright de sistema, rodado agora, no fluxo que entra e chega no dado | mock do caminho inteiro. Sem esse fluxo no combinado, esta linha não se aplica |
+| A tela está certa | a prova de quem usa, na ferramenta da linha Prova, rodada agora, e a tela aberta no fluxo principal, no vazio e no erro, em 375 e em 1280, com teclado, foco visível e console limpo | o Vitest sozinho. Sem tela no combinado, esta linha não se aplica |
+| O sistema cruzou a fronteira | a prova de sistema, na ferramenta da linha Prova, rodada agora, no fluxo que entra e chega no dado | mock do caminho inteiro. Sem esse fluxo no combinado, esta linha não se aplica |
 | Os dados estão certos | se Dados for Supabase: `get_advisors` de segurança sem aviso de tabela aberta, mais a prova de quem vê o quê. Se for Drizzle: a prova de sistema de quem vê o quê, com a regra no servidor | a tela bonita |
 | O segredo ficou fora do Git | `git ls-files` não lista `.env` nem outro `.env.*` com valor. `.env.example`, se existir, não tem valor | o exemplo com senha de verdade |
 | Dá para publicar | esta skill verde e `revisar` feito | vontade. O audit de dependência não entra aqui: critical ou high bloqueiam o ar, em `publicar` |
@@ -68,3 +70,4 @@ Distinga: passou, falhou, ferramenta ausente, bloqueado. Não edite produto nest
 | "A parte está pronta na minha cabeça" | Sem comando e resultado no andamento, a parte segue aberta. |
 | "Cheque parcial chega" | Parcial não prova o que ficou de fora. |
 | "Vou só alinhar um espaçamento" | A prova passou. Espaçamento novo é outro pedido. |
+| "Era pequeno, por isso não fiz plano" | Combinado na forma cheia é coisa nova. Sem plano, não fica pronto. |

@@ -45,8 +45,8 @@ Antes de escrever o combinado na forma cheia, o agente oferece `docs/contexto/` 
 | `docs/sia/planos/` | `planejar` |
 | `docs/sia/andamento.md` | `fazer` |
 | `docs/sia/mapa.md` | `mapa` |
-| `docs/sia/banco/` | `dados`, só quando uma alteração de banco ativo sobe com volta |
-| `docs/contexto/` | a pessoa coloca planilha, documento e dado. `comecar` cria o README se faltar. O resto não vai para o Git |
+| `docs/sia/banco/` | `dados`, quando uma alteração sobe com volta ou uma exclusão é registrada. O registro não leva as linhas |
+| `docs/contexto/` | a pessoa coloca planilha, documento e dado. `combinar` cria o README se faltar, na hora em que oferece a pasta. O resto não vai para o Git |
 | `.graphifyignore` | `mapa` |
 | `AGENTS.md` | `fazer`, quando nasce código de produto |
 | `CLAUDE.md` | `fazer`, na mesma hora. Só aponta para o `AGENTS.md`. |
@@ -57,6 +57,10 @@ Antes de escrever o combinado na forma cheia, o agente oferece `docs/contexto/` 
 - Uma aprovação libera só o papel seguinte.
 - Sem teste que falhou, sem código de produto.
 - Sem causa, sem correção.
+- A mensagem que chegou é classificada antes da retomada. Bug vai para `investigar` e pedido novo vai para `entender`, mesmo com plano aberto. Só "continua", "oi" ou resposta seguem a primeira linha que falhar.
+- A prova usa a ferramenta da linha Prova em `docs/sia/escolhas.md`. Vitest e Playwright são a base de projeto novo, não troca de ferramenta.
+- Com Supabase, nenhuma escrita sobe sem a linha `Projeto Supabase: <nome> (<id>)`, escolhida pela pessoa. Projeto com tabela que não nasceu deste repositório vira `Uso: ativo`, mesmo com a pasta nova.
+- Coisa nova não vira código sem plano em `docs/sia/planos/` e a resposta do ritmo. Só mudança pequena, com o fluxo já no código, segue sem plano, e só com a forma curta do combinado aprovada. Combinado na forma cheia sem plano que aponte para ele bloqueia o "pronto".
 - Sem comando rodado nesta conversa, sem “ficou pronto”.
 - Advisor de segurança do Supabase com tabela aberta bloqueia o “pronto”, mesmo com a tela boa, quando os dados são Supabase.
 - Com Postgres e Drizzle, o “pronto” exige a prova de sistema de quem vê o quê, com a regra no servidor.
@@ -77,4 +81,5 @@ Antes de escrever o combinado na forma cheia, o agente oferece `docs/contexto/` 
 - O primeiro pedaço é o menor caminho em que o "deu certo" da pessoa acontece inteiro. Entrar, quem vê o quê e a regra que esse caminho precisa entram na rodada.
 - Com tela, a parte 1 abre esse caminho no navegador. Parte só de banco ou só de configuração não vem antes.
 - "Vai até o fim" percorre a lista do combinado aprovado até a conferência, sem perguntar entre as partes. Não pula o sim do combinado nem o da cara. Não coloca no ar. A mesma falha, pelo mesmo motivo, duas vezes, para o loop.
-- `Uso: ativo`: consulta segue, alteração pede sim, delete não segue. Alteração automática só com a linha `Banco ativo: alterações com volta`, arquivo de volta antes, registro em `docs/sia/banco/`. Rodar a volta espera outro sim.
+- `Uso: ativo`: consulta segue, alteração pede sim, delete só pela saída para apagar de `dados`. A cópia fica no banco, com a mesma regra de quem vê o quê, e o registro leva tabela, filtro, contagem e o nome da cópia, sem as linhas. O sim cita aquela exclusão. Alteração automática só com a linha `Banco ativo: alterações com volta`, arquivo de volta antes, registro em `docs/sia/banco/`. Rodar a volta espera outro sim.
+- No fim da lista, o `revisor` lê o trabalho e devolve grave, importante e miúdo. Ele não edita. Sem subagente, a revisão é do mesmo autor, e isso é dito.

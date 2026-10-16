@@ -19,7 +19,7 @@ Sem combinado aprovado em trabalho novo, volte para `combinar`. Esta skill não 
 
 ## Sem tela
 
-Se o combinado não descreve tela, escreva `docs/sia/visual.md` com a linha `Sem tela. Os estados são os do combinado.` Sem página, cor ou letra. Mostre essa frase e pare até o sim. Não rode o buscador. Não invente uma tela.
+Se o combinado não descreve tela, escreva `docs/sia/visual.md` com a linha `Sem tela. Os estados são os do combinado.` Sem página, cor ou letra. Diga essa frase à pessoa e siga, sem pedir sim: não há o que aprovar. Não rode o buscador. Não invente uma tela.
 
 Com tela, siga o buscador.
 
@@ -84,7 +84,7 @@ Acessibilidade, toque, performance, consistência com o mestre, layout, tipo e c
 | Desculpa | Resposta |
 | --- | --- |
 | "Gero a cara de novo, a anterior estava genérica" | Sem sim, o mestre fica. |
-| "É só backend, mas já ajusto a cor" | Sem tela, o arquivo registra isso e para. Não invente página. |
+| "É só backend, mas já ajusto a cor" | Sem tela, o arquivo registra isso e segue. Não invente página. |
 | "Uso a paleta que eu gosto" | A paleta sai da busca ou do mestre, não do gosto solto. |
 | "Faço um botão novo, é mais rápido" | Procure a lista de Peças. Se existe, use. |
 | "O segundo clique é raro" | Enquanto salva, envia ou apaga, o botão não aceita de novo. |

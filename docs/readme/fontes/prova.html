@@ -10,36 +10,38 @@
   .linhas { display: flex; flex-direction: column; gap: 16px; }
   .parte { display: grid; grid-template-columns: 46px 1fr 260px; align-items: center; gap: 20px; padding: 18px 22px; }
   .parte .num {
-    width: 42px; height: 42px; border-radius: var(--radius); background: var(--accent);
-    color: #FFFFFF; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 19px;
+    width: 42px; height: 42px; border-radius: var(--radius); background: var(--green);
+    color: #FFFFFF; font-weight: 800; font-size: 19px;
     display: flex; align-items: center; justify-content: center;
   }
-  .parte b { display: block; font-size: 23px; }
-  .parte .cmd { display: block; margin-top: 6px; font-size: 15px; color: var(--accent-light); visibility: hidden; }
+  .parte b { display: block; font-size: 23px; font-weight: 700; }
+  .parte .cmd { display: block; margin-top: 6px; font-size: 15px; color: var(--green); visibility: hidden; }
   .parte .cmd.on { visibility: visible; }
   .estado {
     position: relative; height: 44px; border-radius: var(--radius);
     display: flex; align-items: center; justify-content: center; gap: 10px;
-    font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase;
-    background: var(--bg-deep); color: var(--text-muted); overflow: hidden;
+    font-weight: 800; font-size: 14px; letter-spacing: 1.8px; text-transform: uppercase;
+    background: var(--tint); color: var(--gray); overflow: hidden;
   }
-  .estado.falhou { background: var(--caixa-rosa); color: var(--pink); }
-  .estado.construindo { background: var(--bg-deep); color: var(--accent-light); }
-  .estado.passou { background: var(--accent); color: #FFFFFF; }
-  .estado .barra { position: absolute; left: 0; bottom: 0; height: 4px; background: var(--accent); }
-  .parte.passou { box-shadow: var(--sombra-destaque); }
+  .estado.falhou { background: var(--alerta-fundo); color: var(--alerta); }
+  .estado.construindo { background: var(--tint); color: var(--green); }
+  .estado.passou { background: var(--green); color: #FFFFFF; }
+  /* Barra corrida do loading da página do Núcleo: trilho claro e um trecho verde de 40% em laço de 1,1 s */
+  .estado .barra { position: absolute; left: 14px; right: 14px; bottom: 7px; height: 3px; border-radius: 3px; background: var(--line); overflow: hidden; visibility: hidden; }
+  .estado.construindo .barra { visibility: visible; }
+  .estado .barra i { display: block; height: 100%; width: 40%; border-radius: 3px; background: var(--green); }
+  .parte.passou { box-shadow: var(--cshadow-forte); }
   .destaque {
     margin-top: 24px; padding: 16px 22px; border-radius: var(--radius);
-    background: var(--caixa-verde); font-size: 22px; font-weight: 700; visibility: hidden;
+    background: var(--tint); border: 1px solid var(--cb); border-radius: 12px; font-size: 22px; font-weight: 600; color: var(--green); visibility: hidden;
   }
   .destaque.on { visibility: visible; }
 </style>
 </head>
 <body>
 <div class="palco">
-  <span class="canto cima"></span><span class="canto baixo"></span>
-  <img class="marca-canto" src="marca/sling-padrao-preto-hd.png" alt="Sling">
-  <div class="tag">A prova</div>
+    <div class="marca"><img class="sling" src="marca/sling.webp" alt="Sling"><span class="x"></span><span class="nucleo"><img src="marca/nucleo-simbolo-verde.webp" alt="">Núcleo Pocket</span></div>
+  <div class="kicker"><img src="marca/nucleo-simbolo-verde.webp" alt="">A prova</div>
   <h2>Cada parte só fecha <span class="verde">com o teste passando</span></h2>
   <div class="linhas" id="linhas"></div>
   <div class="destaque" id="destaque">Primeiro o teste falha, depois a parte é construída até ele passar</div>
@@ -56,13 +58,13 @@ linhas.innerHTML = partes.map(([n, c], i) => `
   <div class="card parte">
     <div class="num">${i + 1}</div>
     <div><b>${n}</b><span class="cmd mono">${c}</span></div>
-    <div class="estado"><span class="rot">Na fila</span><span class="barra"></span></div>
+    <div class="estado"><span class="rot">Na fila</span><span class="barra"><i></i></span></div>
   </div>`).join('');
 const els = [...linhas.children];
 const destaque = document.getElementById('destaque');
 
-const INICIO = 600, ENTRE = 2300;
-window.DURACAO = 10800;
+const INICIO = 600, ENTRE = 3000, CONSTROI = 800, PASSA = 2450, VOLTA = 1100;
+window.DURACAO = 12000;
 window.render = (t) => {
   els.forEach((el, i) => {
     const t0 = INICIO + i * ENTRE;
@@ -71,15 +73,17 @@ window.render = (t) => {
     const barra = el.querySelector('.barra');
     let fase = 'fila';
     if (t >= t0) fase = 'falhou';
-    if (t >= t0 + 800) fase = 'construindo';
-    if (t >= t0 + 1700) fase = 'passou';
+    if (t >= t0 + CONSTROI) fase = 'construindo';
+    if (t >= t0 + PASSA) fase = 'passou';
     estado.className = 'estado ' + (fase === 'fila' ? '' : fase);
     rot.textContent = { fila: 'Na fila', falhou: '✕ Teste falhou', construindo: 'Construindo', passou: '✓ Passou' }[fase];
-    barra.style.width = fase === 'construindo' ? Math.round(((t - t0 - 800) / 900) * 100) + '%' : '0';
+    const v = (((t - t0 - CONSTROI) % VOLTA) + VOLTA) % VOLTA / VOLTA;
+    const e = v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2;
+    barra.querySelector('i').style.transform = `translateX(${(-110 + 370 * e).toFixed(1)}%)`;
     el.classList.toggle('passou', fase === 'passou');
     el.querySelector('.cmd').classList.toggle('on', fase === 'passou');
   });
-  destaque.classList.toggle('on', t >= INICIO + 2 * ENTRE + 2100);
+  destaque.classList.toggle('on', t >= INICIO + 2 * ENTRE + PASSA + 300);
 };
 window.render(window.DURACAO);
 </script>

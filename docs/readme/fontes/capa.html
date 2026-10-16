@@ -5,24 +5,56 @@
 <title>SIA · capa</title>
 <link rel="stylesheet" href="base.css">
 <style>
-  .palco { --w: 1280px; --h: 640px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-  .onda { position: absolute; top: 0; height: 100%; }
-  .onda.esq { left: 0; }
-  .onda.dir { right: 0; }
-  .logo { width: 150px; margin-bottom: 34px; }
-  .tag { justify-content: center; margin-bottom: 22px; }
-  .tag::after { content: ""; width: 28px; height: 3px; background: var(--accent); }
-  h1 { font-size: 84px; }
-  .temas { margin-top: 30px; font-size: 26px; font-weight: 500; color: var(--text-muted); }
+  /* Capa no padrão do topo da página do Núcleo: fundo escuro, título em caixa alta, destaque em menta */
+  .palco {
+    --w: 1280px; --h: 640px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    background:
+      radial-gradient(520px 340px at 85% 10%, rgba(1, 203, 139, 0.20), transparent 70%),
+      radial-gradient(600px 360px at 10% 110%, rgba(1, 203, 139, 0.12), transparent 70%),
+      repeating-radial-gradient(circle at 110% 120%, transparent 0 26px, rgba(255, 255, 255, 0.035) 27px 28px, transparent 29px 44px),
+      linear-gradient(160deg, #04382D 0%, #033D31 45%, #022A22 100%);
+  }
+  .palco::after {
+    background-image: url(marca/nucleo-simbolo-branco.webp);
+    right: -60px; bottom: -110px; width: 420px; height: 472px; opacity: 0.06;
+  }
+  .palco::before {
+    content: ""; position: absolute; left: -90px; top: -120px; width: 380px; height: 427px;
+    background: url(marca/nucleo-simbolo-branco.webp) center / contain no-repeat; opacity: 0.035;
+  }
+  .assinatura { display: flex; align-items: center; gap: 18px; margin-bottom: 38px; position: relative; z-index: 2; }
+  .assinatura .sling { height: 38px; }
+  .assinatura .x { width: 1px; height: 34px; background: rgba(255, 255, 255, 0.28); }
+  .assinatura .nucleo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 24px; color: #FFFFFF; letter-spacing: -0.3px; }
+  .assinatura .nucleo img { height: 34px; }
+  .selo {
+    position: relative; z-index: 2;
+    display: inline-flex; align-items: center; gap: 10px; margin-bottom: 26px;
+    padding: 8px 16px; border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.14);
+    font-weight: 700; font-size: 14px; letter-spacing: 2.4px; text-transform: uppercase; color: var(--mint);
+  }
+  h1 {
+    position: relative; z-index: 2;
+    font-weight: 800; font-size: 86px; line-height: 0.98; letter-spacing: -1.3px; text-transform: uppercase; color: #FFFFFF;
+  }
+  h1 em {
+    font-style: normal; color: var(--mint);
+    background: var(--hero-grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .temas { position: relative; z-index: 2; margin-top: 28px; font-size: 25px; font-weight: 500; color: #D3DFDB; }
 </style>
 </head>
 <body>
 <div class="palco">
-  <img class="onda esq" src="marca/onda-esquerda.webp" alt="">
-  <img class="onda dir" src="marca/onda-direita.webp" alt="">
-  <img class="logo" src="marca/sling-padrao-preto-hd.png" alt="Sling">
-  <div class="tag">SIA · Núcleo Pocket</div>
-  <h1>Do pedido ao<br><span class="verde">sistema pronto</span></h1>
+  <div class="assinatura">
+    <img class="sling" src="marca/sling-branca.webp" alt="Sling">
+    <span class="x"></span>
+    <span class="nucleo"><img src="marca/nucleo-simbolo-branco.webp" alt="">Núcleo Pocket</span>
+  </div>
+  <div class="selo">SIA</div>
+  <h1>Do pedido ao<br><em>sistema pronto</em></h1>
   <p class="temas">Crie um sistema conversando com a IA, mesmo sem saber programar</p>
 </div>
 <script>window.render = () => {};</script>

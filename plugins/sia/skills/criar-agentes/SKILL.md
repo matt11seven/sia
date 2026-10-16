@@ -9,13 +9,13 @@ description: >
   separados".
 ---
 
-> A pasta segue os squads do aiox-core, licença MIT. Sem clone. Ficaram o manifesto, os papéis, as tarefas, o fluxo e a lista. Saíram saudação, signo, ícone e publicação em mercado. A boca é português.
+> A pasta segue os squads do aiox-core, licença MIT. O clone local fica em `references/aiox-core`, fora do Git. Ficaram o manifesto, os papéis, as tarefas, o fluxo e a lista. Saíram saudação, signo, ícone e publicação em mercado. A boca é português.
 
 # Criar agentes
 
 Com a pessoa, siga "Como falar" em `comecar`. Não diga o nome desta skill. Abra com **Etapa: o time**. Diga "time". A pasta se chama `squads/`.
 
-Faça nesta sessão. A pergunta e a espera não cabem num subagente.
+Faça nesta sessão. A pergunta e a espera não cabem num subagente. O agente `criar-agentes` só entra depois: quando o sim já foi dado nesta conversa, com o que o time entrega e os papéis. Ele escreve os arquivos e roda o validador. Sem esse sim, não chame o agente.
 
 ## A lei
 

@@ -1,6 +1,6 @@
 {
   "name": "sia",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Ajuda a planejar, documentar, construir e testar um sistema. O caminho é o combinado, a cara e a prova. Supabase é a sugestão de dados. Postgres com Drizzle é a segunda.",
   "license": "MIT",
   "keywords": ["sistema", "planejamento", "testes", "supabase", "vercel", "tdd"],

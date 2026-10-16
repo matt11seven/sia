@@ -34,7 +34,7 @@ Ao mostrar uma tela, ela traz só o que a pessoa criou ali ou o que está em `do
 
 ## A escada
 
-Sobe depois de ler o pedido e o código que ele toca, e antes de escrever a prova. Pare no primeiro degrau que segura. Dois degraus servem: fique no de cima.
+Sobe depois de ler o pedido e o código que ele toca, e antes de escrever a prova. Pare no primeiro degrau que segura. Dois degraus servem: fique no de número menor.
 
 1. **Isso precisa existir?** Necessidade imaginada não se constrói. Diga numa frase e siga.
 2. **Já está neste projeto?** Um helper, um tipo, uma tela, um padrão a poucos arquivos daqui. Olhe antes de reescrever.
@@ -119,7 +119,10 @@ Se o projeto precisar de variável de ambiente, escreva `.env.example` com o nom
 
 Escreva na raiz do projeto da pessoa na primeira vez que nascer código de produto. Atualize quando o comando da prova mudar. Não repita o combinado.
 
+O texto do SIA fica entre `<!-- SIA:inicio -->` e `<!-- SIA:fim -->`. Se já existir `AGENTS.md`, não apague nem reescreva nada: acrescente o bloco no fim. Depois, atualize só o que está entre essas duas marcas. Fora delas, o arquivo é da pessoa ou de outra ferramenta.
+
 ```markdown
+<!-- SIA:inicio -->
 # Para o agente
 
 O que o sistema faz está em docs/sia/combinado.md. Este arquivo não repete isso.
@@ -138,7 +141,8 @@ Pronto só com esses comandos rodados nesta conversa, saída lida, e cada parte 
 
 ## Banco e segredo
 
-Segredo não entra no browser nem no log. `.env` não entra no Git. `.env.example`, se existir, tem o nome e uma frase, sem valor. Se docs/sia/escolhas.md disser Supabase, a mudança do banco sobe pela ligação. Não cole SQL no painel. Se disser Postgres com Drizzle, o SQL do repositório é a mudança. Se disser Uso: ativo, consulta segue, alteração pede sim, delete não segue. Alteração automática só com a linha Banco ativo: alterações com volta, e a trava está em `dados`.
+Segredo não entra no browser nem no log. `.env` não entra no Git. `.env.example`, se existir, tem o nome e uma frase, sem valor. Se docs/sia/escolhas.md disser Supabase, a mudança do banco sobe pela ligação. Não cole SQL no painel. Se disser Postgres com Drizzle, o SQL do repositório é a mudança. Se disser Uso: ativo, consulta segue, alteração pede sim, delete só pela saída para apagar de `dados`. Alteração automática só com a linha Banco ativo: alterações com volta, e a trava está em `dados`.
+<!-- SIA:fim -->
 ```
 
 Se `Sistema` incluir ESLint e o projeto ainda não tiver script de lint, o script é `eslint .`. Se incluir TypeScript e não houver checagem de tipo, o script é `tsc --noEmit`. Grave os dois em `package.json` e nesta lista. Sem piso de cobertura.
@@ -147,15 +151,17 @@ Mudança pequena, sem plano, também escreve ou atualiza este arquivo quando o c
 
 ## CLAUDE.md
 
-Na mesma hora em que o `AGENTS.md` nasce, escreva na raiz um `CLAUDE.md` que só aponta para ele. O Claude Code lê esse nome. Codex e Grok leem o `AGENTS.md`.
+Na mesma hora em que o `AGENTS.md` nasce, escreva na raiz um `CLAUDE.md` que só aponta para ele, com a linha `@AGENTS.md`. O Claude Code importa sozinho o arquivo citado com `@`, sem depender de alguém ler a frase. O Claude Code lê esse nome. Codex e Grok leem o `AGENTS.md`.
 
 ```markdown
 # SIA
 
-Leia `AGENTS.md` nesta raiz e siga a seção Prova. O que o sistema faz está em `docs/sia/combinado.md`. Este arquivo não repete isso.
+@AGENTS.md
+
+Siga a seção Prova do `AGENTS.md`, importado acima. O que o sistema faz está em `docs/sia/combinado.md`. Este arquivo não repete isso.
 ```
 
-Se já existir `CLAUDE.md` e ele não citar `AGENTS.md`, acrescente esse ponteiro no fim. Não apague o que a pessoa já escreveu. Se o ponteiro já estiver lá, não escreva de novo.
+Se já existir `CLAUDE.md` e ele não tiver a linha `@AGENTS.md`, acrescente essa linha no fim. Não apague o que a pessoa já escreveu. Se a linha já estiver lá, não escreva de novo.
 
 ## No fim da lista
 

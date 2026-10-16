@@ -62,7 +62,7 @@ Lista curta do que a pessoa precisa ter. Para cada item, uma linha do que é e o
 - O agente que a turma usa (o Claude Code, por exemplo), já instalado.
 - Uma pasta vazia no computador para o sistema novo.
 - Conta no Supabase e na Vercel só quando o SIA pedir. Diga que não precisa criar antes.
-- Se tiver planilha, lista de preços, documento da empresa ou regra escrita que o sistema precisa respeitar, separe. Antes de escrever o combinado, o SIA pede para colocar esses arquivos na pasta `docs/contexto/` do projeto e lê tudo antes de escrever. Diga que esses arquivos ficam no computador e não vão para o GitHub.
+- Se tiver planilha, lista de preços, documento da empresa ou regra escrita que o sistema precisa respeitar, separe. Antes de escrever o combinado, o SIA pede para colocar esses arquivos na pasta `docs/contexto/` do projeto e lê tudo antes de escrever. Diga que esses arquivos não vão para o GitHub, mas que a IA lê o conteúdo para escrever o combinado. Não prometa que "não vão para a internet". Peça para não colocar senha nem dado sensível de cliente.
 
 ### 3.4 Instalar
 
@@ -153,7 +153,7 @@ O tom é o do Núcleo da Sling: claro, calmo e honesto, sem euforia. O aluno é 
 
 ## 5. Imagens e GIFs
 
-Todas seguem a identidade nova da Sling: fundo branco, verde `#01CB8B`, letra Urbanist e ondas só na capa.
+Todas seguem a identidade nova do Núcleo, medida em [lpnucleo.slingbr.com](https://lpnucleo.slingbr.com/): verde-escuro `#045242` como cor principal, menta `#01CB8B` só em destaque, letra Urbanist, cartões com cantos de 20px, borda clara e sombra verde suave. A capa segue o topo da página do Núcleo: fundo verde-escuro, título em caixa alta e destaque em degradê de menta. Toda peça assina com a Sling e o símbolo do Núcleo com o texto "Núcleo Pocket". As logos oficiais e a origem de cada uma estão em `fontes/marca/LEIA-ME.md`.
 
 | Arquivo | Onde entra | Texto alternativo (alt) |
 |---|---|---|

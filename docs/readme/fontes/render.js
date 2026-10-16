@@ -31,6 +31,7 @@ async function abrir(browser, nome, escala) {
   const page = await browser.newPage({ viewport: { width: 1400, height: 900 }, deviceScaleFactor: escala });
   await page.goto('file://' + path.join(FONTES, nome + '.html'));
   await page.evaluate(async () => {
+    await Promise.all(['400', '500', '600', '700', '800'].map((p) => document.fonts.load(`${p} 40px Urbanist`)));
     await document.fonts.ready;
     await Promise.all([...document.images].map((i) => i.complete || new Promise((r) => (i.onload = i.onerror = r))));
   });

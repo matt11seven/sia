@@ -31,15 +31,26 @@ Leia `Uso` em `docs/sia/escolhas.md`.
 
 Sem a linha, e o repositório já tem código: uma pergunta, uma vez, antes de qualquer escrita no banco. "Gente já usa este sistema?" Grave `Uso: novo` ou `Uso: ativo`. Consulta pode acontecer antes da resposta. Escrita espera.
 
-`Uso: novo`. O banco de teste que a pessoa já aceitou recebe a mudança do plano. O arquivo nasce no git e sobe pela ligação. Apagar dado que alguém já guardou não entra nem aqui.
+`Uso: novo`. O banco de teste que a pessoa já aceitou recebe a mudança do plano. O arquivo nasce no git e sobe pela ligação. Apagar dado que alguém já guardou também só passa pela saída para apagar, abaixo.
 
 `Uso: ativo`. Três classes:
 
 - Consulta. Ler, listar, advisor. Segue.
 - Alteração. Mudar linha, coluna ou schema desse banco. Pare. Uma frase com o efeito. Espere o sim daquela mudança.
-- Delete. Apagar linha, esvaziar tabela, derrubar tabela com dado. Não faça. Insistir não libera.
+- Delete. Apagar linha, esvaziar tabela, derrubar tabela ou coluna com dado. Você não apaga por conta própria nem porque a pessoa insistiu. Só existe a saída abaixo, uma exclusão por vez.
 
-Se ela disser com todas as letras que as alterações desse banco ativo podem ir sozinhas, a linha vira `Banco ativo: alterações com volta`. Delete continua de fora.
+Saída para apagar. Vale em `Uso: ativo` e em qualquer banco com dado que alguém guardou:
+
+1. A pessoa pede uma exclusão específica: o quê e de onde.
+2. O arquivo no projeto só descreve a exclusão: a tabela, o filtro e a frase do que sai. Sem linha de dado, nome, e-mail ou documento. A cópia não é arquivo. É a tabela `copia_<tabela>_<AAAAMMDD>` no mesmo banco.
+3. Essa tabela nasce com a mesma regra de quem vê o quê da origem. No Supabase, a policy é a mesma e o advisor não pode acusar tabela aberta. No Drizzle, a cópia não fica acessível a um papel que a origem não usa. Sem essa regra, a cópia não nasce e a exclusão não segue.
+4. Rode uma consulta de contagem e diga à pessoa, em frases, a tabela, o filtro e quantas linhas. Sem listar as linhas. Exemplo: "Vão sair 12 cadastros de teste da tabela pacientes, os do filtro combinado."
+5. Espere um sim que cite essa exclusão. "Pode" solto não vale.
+6. Rode a cópia, confira que ela tem o mesmo número de linhas, e só então a exclusão. Registre em `docs/sia/banco/AAAA-MM-DD-<assunto>.md` a tabela, o filtro, a contagem e o nome da cópia. Sem as linhas.
+
+Nunca pela linha `alterações com volta`. Funcionalidade do sistema que apaga, como o cliente excluir o próprio cadastro, não é esta trava: é código, nasce com prova e segue o plano.
+
+Se ela disser com todas as letras que as alterações desse banco ativo podem ir sozinhas, a linha vira `Banco ativo: alterações com volta`. Delete continua fora dessa linha e só passa pela saída para apagar.
 
 Antes de aplicar uma alteração nessa linha:
 
@@ -75,11 +86,23 @@ Esse comando detecta o agente da máquina e instala a ligação e as skills ofic
 
 Escreva em `docs/sia/escolhas.md` a linha `Ligação: ligada`, `Ligação: falta login` ou `Ligação: pendente`.
 
+### Projeto de destino
+
+A ligação responder não diz em qual projeto a mudança cai. A conta da pessoa pode ter outros projetos, com dado de verdade.
+
+1. Leia a linha `Projeto Supabase` em `docs/sia/escolhas.md`. Se existir, toda chamada usa esse id, e só ele. Pule para o passo 5.
+2. Sem a linha, liste os projetos pelo nome, com `list_projects`. Uma pergunta: qual deles é deste sistema, ou se é para criar um novo com o nome do sistema. A recomendada primeiro: um projeto novo. Espere. Não escolha pelo nome parecido.
+3. Projeto novo: crie pela ligação só depois desse sim, com o nome do sistema. Se a criação pedir plano pago ou cobrança, diga isso numa frase e espere outro sim.
+4. Grave `Projeto Supabase: <nome> (<id>)` em `docs/sia/escolhas.md`.
+5. Antes da primeira mudança, rode `list_tables` nesse projeto. Se houver tabela com dado que não nasceu de um arquivo deste repositório, o projeto está em uso, mesmo que a pasta seja nova. Troque a linha para `Uso: ativo`, conte numa frase o que achou e siga a seção Sistema ativo.
+
+Sem a linha `Projeto Supabase`, nenhuma chamada que escreve sobe: `apply_migration`, `execute_sql` com escrita, criação de tabela ou de usuário. Consulta pode acontecer para responder o passo 2.
+
 ### Mudar o banco
 
 1. Leia as skills oficiais `supabase` e `supabase-postgres-best-practices` para o pedaço desta tarefa (tabela, conta, arquivo, quem vê o quê) e siga o que elas mandam. Se não estiverem instaladas, diga isso numa frase e use a documentação que a ligação devolver, sem inventar um padrão paralelo.
 2. Use a ligação como a mão. Ferramentas da v1, pelos nomes reais do schema, sem chute: `list_projects`, `list_tables`, `list_migrations`, `apply_migration`, `execute_sql`, `get_advisors`, `generate_typescript_types`, `get_project_url`, `get_publishable_keys`.
-3. Escreva a migration no projeto. Antes de subir, passe por Sistema ativo. Suba com `apply_migration`. O arquivo continua no git. O SQL não vai para o chat como algo para a pessoa colar.
+3. Escreva a migration no projeto. Antes de subir, passe por Projeto de destino e por Sistema ativo. Suba com `apply_migration`, no id da linha `Projeto Supabase`. O arquivo continua no git. O SQL não vai para o chat como algo para a pessoa colar.
 4. Antes de dizer que os dados estão certos: `get_advisors` com tipo security. Aviso de tabela aberta para qualquer um é correção, não nota. Rode de novo e veja o aviso sumir. Aviso de performance fica registrado. O que quebra confiança bloqueia `conferir`.
 5. Gere os tipos com `generate_typescript_types` quando o projeto for TypeScript, e guarde no lugar que o repositório já usa.
 
@@ -111,6 +134,6 @@ Não ofereça três desenhos de banco. A linha de escolhas já decidiu. Diga a c
 | "db push é mais rápido" | O SQL revisado é a mudança guardada no projeto. |
 | "O filtro da tela chega" | Quem chama o banco direto não passa pela tela. A regra mora no servidor. |
 | "Coloco a chave secreta só para testar no front" | Não. Nem para testar. |
-| "O sistema já está em uso, aplico a mudança e aviso depois" | Alteração em banco ativo espera o sim. Delete não segue. |
-| "Ela insistiu, então apago" | Delete não segue. Insistir não libera. |
+| "O sistema já está em uso, aplico a mudança e aviso depois" | Alteração em banco ativo espera o sim. Delete só pela saída para apagar. |
+| "Ela insistiu, então apago" | Insistir não é o sim da exclusão. Cópia, o que sai em frases e um sim citando aquilo. |
 | "Alteração automática dispensa a volta" | Sem o arquivo que desfaz, a mudança não sobe. |

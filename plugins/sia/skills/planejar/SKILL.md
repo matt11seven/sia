@@ -37,7 +37,7 @@ Liste os arquivos que serão criados ou mudados e a responsabilidade de cada um.
 
 Uma parte é a menor unidade com o próprio ciclo de prova. Configuração entra na parte que precisa dela. Separe só onde daria para recusar uma parte e aceitar a vizinha.
 
-Com tela, a parte 1 já abre no navegador o caminho do "deu certo". Parte só de configuração ou só de banco não vem antes dela. Se `Uso` em `docs/sia/escolhas.md` for ativo, a parte que mexe no banco segue a trava de `dados`. Consulta segue. Alteração espera permissão. Delete não entra no plano.
+Com tela, a parte 1 já abre no navegador o caminho do "deu certo". Parte só de configuração ou só de banco não vem antes dela. Se `Uso` em `docs/sia/escolhas.md` for ativo, a parte que mexe no banco segue a trava de `dados`. Consulta segue. Alteração espera permissão. Delete não entra no plano. Se a pessoa pedir, é a saída para apagar de `dados`, fora da lista.
 
 ## Onde salvar
 
@@ -77,7 +77,7 @@ Com tela, a parte 1 já abre no navegador o caminho do "deu certo". Parte só de
 **Arquivos:**
 - Criar: `caminho/exato`
 - Mudar: `caminho/exato`
-- Prova: `caminho/do/teste` — regra (Vitest), quem usa (Playwright no browser) ou sistema (Playwright no sistema de pé). O corte está em `testar-primeiro`.
+- Prova: `caminho/do/teste` — regra (o teste rápido da linha Prova, Vitest em projeto novo), quem usa (a ferramenta de fluxo no browser, Playwright em projeto novo) ou sistema (a ferramenta de fluxo com o sistema de pé). O corte está em `testar-primeiro`.
 
 **Encaixa:**
 - Usa: o que a parte anterior entrega, com o nome exato

@@ -28,7 +28,7 @@ Obrigatório ao fim da lista de `fazer`, antes de `publicar`, e antes de juntar 
 1. **Combinado.** Cada prova de `docs/sia/combinado.md` tem teste que você viu falhar e passar, ou está escrita como fora desta rodada. O que a pessoa vê (quem vê o quê, estados vazio e erro) está no código, não só no texto.
 2. **Cara e qualidade.** `docs/sia/visual.md` manda. Se disser sem tela, não cobre cor. Se houver tela, cor, letra e espaço. Dois arquivos para a mesma peça são achado grave. A mesma regra de negócio em dois lugares é achado grave: preço, prazo, quem vê o quê ou o cálculo copiados. `.env` acompanhado pelo Git é achado grave. `.env.example` com valor também. Depois: nome, responsabilidade do arquivo, segredo fora do browser, dado de uma pessoa invisível para outra na consulta do servidor, entrada validada antes de gravar. Botão que salva, envia ou apaga precisa ficar desabilitado enquanto a ação corre.
 
-Se houver ferramenta de subagente, mande um revisor com o caminho do combinado, do plano, do visual e o intervalo de commits. Sem subagente, faça você mesmo numa passada separada, depois da última parte, e diga que foi revisão do mesmo autor, mais fraca.
+Se este agente consegue chamar subagente, chame o `revisor` em `plugins/sia/agents/revisor.md`. Entregue o caminho do combinado, do plano, do visual e o intervalo de commits. Ele só lê e não edita. Você aplica o achado grave e o importante. Sem subagente, faça você mesmo numa passada separada, depois da última parte, e diga que foi revisão do mesmo autor, mais fraca.
 
 Grave o intervalo:
 

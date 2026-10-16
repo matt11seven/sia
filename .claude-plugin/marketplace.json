@@ -8,7 +8,7 @@
     {
       "name": "sia",
       "description": "Planejar, documentar, construir e testar um sistema.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "source": "./plugins/sia",
       "license": "MIT"
     }

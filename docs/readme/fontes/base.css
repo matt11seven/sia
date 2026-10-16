@@ -1,33 +1,35 @@
-/* Padrão visual Sling (tema claro). Tokens de
-   MAIOSv1/squads/workshop-content/templates/slides/PADRAO-VISUAL.md, seções 2 a 4. */
+/* Identidade nova do Núcleo (Sling). Tokens medidos em https://lpnucleo.slingbr.com/ em 2026-10-16. */
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=block');
 
 :root {
-  --bg: #FFFFFF;
-  --bg-deep: #F1F8F5;
-  --text: #121C19;
-  --text-muted: #4D5C56;
+  --ink: #121C19;
+  --green: #045242;
+  --green-deep: #033D31;
   --accent: #01CB8B;
-  --accent-strong: #00A870;
-  --accent-light: #007F53;
-  --pink: #CC3366;
-  --caixa-verde: #EDFAF4;
-  --caixa-rosa: #FCF0F4;
-  --linha: rgba(18, 28, 25, 0.10);
-  --sombra: 0 1px 3px rgba(18, 28, 25, 0.06), 0 16px 36px -18px rgba(18, 28, 25, 0.24);
-  --sombra-destaque: 0 2px 6px rgba(0, 127, 83, 0.10), 0 26px 50px -18px rgba(0, 168, 112, 0.50);
-  --luz: radial-gradient(55% 60% at 100% 0%, rgba(1, 203, 139, 0.14), transparent 70%),
-         radial-gradient(60% 65% at 100% 100%, rgba(1, 203, 139, 0.11), transparent 70%);
-  --radius: 4px;
+  --mint: #9FF5D6;
+  --tint: #EEF6F3;
+  --gray: #5F6B67;
+  --line: #E2ECE8;
+  --cb: #E0EDE8;
+  --alerta: #C2410C;
+  --alerta-fundo: #FDF1EA;
+  --cshadow: 0 18px 40px -32px rgba(4, 82, 66, 0.30);
+  --cshadow-forte: 0 22px 46px -26px rgba(4, 82, 66, 0.45);
+  --t-ondas: repeating-radial-gradient(circle at 110% 120%, transparent 0 26px, rgba(4, 82, 66, 0.035) 27px 28px, transparent 29px 44px);
+  --t-brilho: radial-gradient(380px 240px at 100% 100%, rgba(1, 203, 139, 0.09), transparent 65%);
+  --t-seda: linear-gradient(118deg, transparent 30%, rgba(1, 203, 139, 0.05) 44%, rgba(255, 255, 255, 0.6) 50%, transparent 64%);
+  --hero-grad: linear-gradient(90deg, #C9FBE8 0%, #7FF3CB 45%, #5EF0BD 100%);
+  --radius: 8px;
+  --radius-card: 20px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body { background: var(--bg); }
+html, body { background: #FFFFFF; }
 
 body {
   font-family: 'Urbanist', sans-serif;
-  color: var(--text);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
 }
@@ -36,68 +38,82 @@ body {
   position: relative;
   width: var(--w);
   height: var(--h);
-  background: var(--luz), var(--bg);
+  background: var(--t-brilho), var(--t-ondas), #FFFFFF;
   overflow: hidden;
 }
 
-/* Logo pequena no canto superior direito */
-.marca-canto {
+/* Símbolo do Núcleo grande e apagado no canto, como nos fundos da página do Núcleo */
+.palco::after {
+  content: "";
   position: absolute;
-  top: 34px;
-  right: 44px;
-  width: 112px;
+  right: -70px;
+  bottom: -90px;
+  width: 340px;
+  height: 382px;
+  background: url(marca/nucleo-simbolo-verde.webp) center / contain no-repeat;
+  opacity: 0.045;
+  pointer-events: none;
 }
 
-/* Cantoneiras finas à esquerda, como numa folha de planta */
-.canto { position: absolute; left: 34px; width: 26px; height: 26px; border-color: var(--accent); border-style: solid; border-width: 0; }
-.canto.cima { top: 34px; border-top-width: 3px; border-left-width: 3px; }
-.canto.baixo { bottom: 34px; border-bottom-width: 3px; border-left-width: 3px; }
-
-.tag {
+/* Assinatura: Sling, traço, símbolo do Núcleo e "Núcleo Pocket" */
+.marca {
+  position: absolute;
+  top: 36px;
+  right: 48px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--accent-light);
+  gap: 14px;
+  z-index: 2;
 }
-.tag::before { content: ""; width: 28px; height: 3px; background: var(--accent); }
+.marca .sling { height: 27px; }
+.marca .x { width: 1px; height: 24px; background: var(--line); }
+.marca .nucleo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 17px; color: var(--green); letter-spacing: -0.2px; }
+.marca .nucleo img { height: 24px; }
 
-h1, h2 {
-  font-weight: 800;
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 2.4px;
   text-transform: uppercase;
-  letter-spacing: -0.5px;
-  line-height: 1.04;
+  color: var(--green);
 }
-.verde { color: var(--accent-strong); }
+.kicker img { height: 15px; }
+
+h2 {
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+.verde { color: var(--green); }
 
 .card {
-  background: #FFFFFF;
-  border-radius: var(--radius);
-  box-shadow: var(--sombra);
+  background: var(--t-seda), linear-gradient(160deg, #FFFFFF 0%, #FDFDFB 100%);
+  border: 1px solid var(--cb);
+  border-radius: var(--radius-card);
+  box-shadow: var(--cshadow);
 }
 
 .mini {
-  font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   font-size: 12px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--accent-light);
+  color: var(--green);
 }
 
 .aviso-exemplo {
   position: absolute;
-  bottom: 30px;
-  right: 44px;
-  font-family: 'JetBrains Mono', monospace;
+  bottom: 28px;
+  right: 48px;
+  font-weight: 700;
   font-size: 12px;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--gray);
+  z-index: 2;
 }
 
 .mono { font-family: 'JetBrains Mono', monospace; }

@@ -4,8 +4,9 @@ description: >
   Use antes de escrever código de produto em feature, correção ou mudança de
   comportamento de um sistema. Gatilhos: implementar, corrigir, "faz funcionar",
   "salva", "o botão", bug já com causa achada por investigar. A prova nasce
-  primeiro e tem que falhar pelo motivo certo. A regra vai para o Vitest. Quem
-  usa e o sistema vão para o Playwright. Se a base ainda não foi escolhida,
+  primeiro e tem que falhar pelo motivo certo. A ferramenta é a da linha Prova
+  em escolhas. Em projeto novo, a regra vai para o Vitest e quem usa e o
+  sistema vão para o Playwright. Se a base ainda não foi escolhida,
   sugira a de escolher e espere. Use when implementing any system feature or
   bugfix, before writing implementation code. TDD.
 ---
@@ -32,15 +33,19 @@ Sempre: comportamento novo, correção, refatoração que muda comportamento.
 
 Exceções, ditas em voz alta e aceitas pela pessoa: protótipo que será jogado fora, arquivo gerado, configuração sem comportamento.
 
+Antes da primeira prova, olhe o caminho. Coisa nova só entra aqui por dentro de `fazer`, com plano em `docs/sia/planos/`. Chamada direto, sem plano, só vale para mudança pequena com a forma curta aprovada. Se o combinado está na forma cheia e não há plano que aponte para ele, pare e volte para `planejar`.
+
 ## Três provas
 
 A lei vale para as três. Nenhuma nasce depois do código.
 
-1. **Regra.** Vitest, ou o teste rápido que o projeto já usa. Sem browser. Uma afirmação. É a primeira prova quando o comportamento é uma regra.
-2. **Quem usa.** Playwright no browser. A pessoa abre, preenche, envia e vê o resultado, o erro e o vazio. Escrita antes da tela. Só se o combinado tiver tela. O gesto é o mesmo que `conferir` abre.
-3. **Sistema.** Playwright com o sistema de pé. O fluxo cruza entrada, regra e dado, no banco de teste, sem mock do caminho inteiro. Serviço de fora pode ser trocado na borda. Sem tela, e com uma entrada que outro sistema chama, a prova usa o `request` do Playwright nessa entrada. Uma prova por fluxo crítico do combinado.
+A ferramenta de cada prova é a da linha Prova em `docs/sia/escolhas.md`. Vitest e Playwright, nomeados abaixo, são a base de projeto novo. Se o projeto já prova com outra (Jest na regra, Cypress no fluxo), use essa. Não instale Playwright num projeto que já tem ferramenta de fluxo.
 
-Num fluxo com tela, a parte da regra começa vermelha no Vitest. A parte do fluxo começa vermelha no Playwright, a de quem usa e a de sistema quando cruza dado de verdade. Função pura não ganha Playwright. Fluxo que uma pessoa faz não termina só no Vitest.
+1. **Regra.** Vitest, ou o teste rápido que o projeto já usa. Sem browser. Uma afirmação. É a primeira prova quando o comportamento é uma regra.
+2. **Quem usa.** A ferramenta de fluxo no browser (Playwright em projeto novo). A pessoa abre, preenche, envia e vê o resultado, o erro e o vazio. Escrita antes da tela. Só se o combinado tiver tela. O gesto é o mesmo que `conferir` abre.
+3. **Sistema.** A ferramenta de fluxo com o sistema de pé (Playwright em projeto novo). O fluxo cruza entrada, regra e dado, no banco de teste, sem mock do caminho inteiro. Serviço de fora pode ser trocado na borda. Sem tela, e com uma entrada que outro sistema chama, a prova chama essa entrada de verdade (no Playwright, pelo `request`). Uma prova por fluxo crítico do combinado.
+
+Num fluxo com tela, a parte da regra começa vermelha no teste rápido. A parte do fluxo começa vermelha na ferramenta de fluxo, a de quem usa e a de sistema quando cruza dado de verdade. Função pura não ganha prova de fluxo. Fluxo que uma pessoa faz não termina só no teste rápido.
 
 Se `docs/sia/escolhas.md` não tiver a linha Prova, ou ela disser "ainda não", volte para a base sugerida de `escolher` e espere. Não instale no escuro. Não escreva a prova numa ferramenta que a pessoa não aceitou.
 
@@ -56,9 +61,9 @@ Depois, a próxima prova.
 
 ## Onde a prova mora
 
-- Regra e "quem vê o quê" na lógica: Vitest.
-- Quem usa, se houver tela: Playwright no browser, antes do componente. Abrir de verdade continua obrigatório em `conferir`.
-- Sistema: Playwright no fluxo que cruza a fronteira. Sem tela, o `request`, se houver entrada.
+- Regra e "quem vê o quê" na lógica: o teste rápido da linha Prova (Vitest em projeto novo).
+- Quem usa, se houver tela: a ferramenta de fluxo no browser, antes do componente. Abrir de verdade continua obrigatório em `conferir`.
+- Sistema: a ferramenta de fluxo no caminho que cruza a fronteira. Sem tela, a chamada de verdade na entrada, se houver.
 - Bug: a primeira mudança de comportamento é uma prova que reproduz a falha. `investigar` entrega a causa. Esta skill entrega a prova.
 - Botão que salva, envia ou apaga: a prova de quem usa inclui o segundo clique no meio da ação. O efeito acontece uma vez.
 - Limite por pessoa: se o combinado tiver essa prova numa chamada que cobra por uso, ela nasce primeiro, no Vitest. Sem essa linha no combinado, não invente a prova.

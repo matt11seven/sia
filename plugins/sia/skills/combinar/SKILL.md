@@ -27,7 +27,7 @@ Se `docs/contexto/README.md` não existir, crie a pasta e esse arquivo com o tex
 Na forma cheia, antes de escrever, ofereça a pasta. Se `docs/contexto/` só tiver o README e você ainda não ofereceu nesta conversa, a mensagem é esta, e você espera a resposta:
 
 > **Etapa: o combinado (PRD)**
-> Antes de eu escrever o combinado: se você tem planilha, lista de preços, documento da empresa ou alguma regra escrita que o sistema precisa respeitar, coloque na pasta `docs/contexto/` do projeto e me avise. Eu leio tudo antes de escrever. Se não tiver nada, é só dizer que posso seguir.
+> Antes de eu escrever o combinado: se você tem planilha, lista de preços, documento da empresa ou alguma regra escrita que o sistema precisa respeitar, coloque na pasta `docs/contexto/` do projeto e me avise. Eu leio tudo antes de escrever. Esses arquivos não vão para o GitHub, mas eu leio o conteúdo, então não coloque senha nem dado sensível de cliente. Se não tiver nada, é só dizer que posso seguir.
 
 Se a pasta já tiver arquivo além do README, não pergunte. Diga numa frase o que vai usar ("Vou usar a lista de preços que está na pasta de contexto") e escreva.
 
@@ -74,7 +74,7 @@ Corrija no arquivo. Não peça para a pessoa achar o buraco.
 
 Diga o caminho do arquivo e pare. A próxima frase pede que a pessoa leia e diga se quer mudar algo antes da cara.
 
-Se pedir mudança, edite e repasse a revisão própria. Só um sim sobre este arquivo libera `visual`. Sem tela, a cara registra isso e para. A lista vem depois da cara.
+Se pedir mudança, edite e repasse a revisão própria. Só um sim sobre este arquivo libera `visual`. Sem tela, a cara só registra isso, sem pedir sim. A lista vem depois da cara.
 
 ## Desculpas
 

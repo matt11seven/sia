@@ -12,7 +12,7 @@ description: >
 
 # Investigar
 
-Com a pessoa, siga "Como falar" em `comecar`. Não diga o nome desta skill. Abra com **Fase: achar a causa**, depois uma frase de onde estamos, depois a pergunta ou o que há para olhar.
+Com a pessoa, siga "Como falar" em `comecar`. Não diga o nome desta skill. Abra com **Etapa: achar a causa**, depois uma frase de onde estamos, depois a pergunta ou o que há para olhar.
 
 ## A lei
 

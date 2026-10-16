@@ -12,21 +12,21 @@
   .passo .num {
     width: 38px; height: 38px; border-radius: var(--radius);
     display: flex; align-items: center; justify-content: center;
-    font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 18px;
-    background: #DCE6E1; color: #FFFFFF; margin-bottom: 14px;
+    font-weight: 800; font-size: 18px;
+    background: var(--line); color: #9AA5A1; margin-bottom: 14px;
   }
   .passo .topo { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
   .passo .topo .num { margin-bottom: 0; }
-  .sigla { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 15px; letter-spacing: 1.5px; color: var(--accent-light); padding: 4px 8px; border-radius: var(--radius); background: var(--caixa-verde); }
-  .passo h3 { font-size: 21px; font-weight: 800; text-transform: uppercase; margin-bottom: 6px; }
-  .passo p { font-size: 18px; line-height: 1.3; color: var(--text-muted); }
+  .sigla { font-weight: 800; font-size: 14px; letter-spacing: 1.5px; color: var(--green); padding: 4px 9px; border-radius: var(--radius); background: var(--tint); border: 1px solid var(--cb); }
+  .passo h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.2px; margin-bottom: 6px; }
+  .passo p { font-size: 18px; line-height: 1.3; color: var(--gray); }
   .passo.feito { opacity: 1; }
-  .passo.feito .num { background: var(--accent); }
-  .passo.agora { opacity: 1; box-shadow: var(--sombra-destaque); }
-  .passo.agora .num { background: var(--accent-strong); }
+  .passo.feito .num { background: var(--green); color: #FFFFFF; }
+  .passo.agora { opacity: 1; box-shadow: var(--cshadow-forte); border-color: rgba(1, 203, 139, 0.55); }
+  .passo.agora .num { background: var(--accent); color: #FFFFFF; }
   .destaque {
     margin-top: 26px; padding: 16px 22px; border-radius: var(--radius);
-    background: var(--caixa-verde); font-size: 22px; font-weight: 700;
+    background: var(--tint); border: 1px solid var(--cb); border-radius: 12px; font-size: 22px; font-weight: 600; color: var(--green);
     visibility: hidden;
   }
   .destaque.on { visibility: visible; }
@@ -34,9 +34,8 @@
 </head>
 <body>
 <div class="palco">
-  <span class="canto cima"></span><span class="canto baixo"></span>
-  <img class="marca-canto" src="marca/sling-padrao-preto-hd.png" alt="Sling">
-  <div class="tag">Como a conversa anda</div>
+    <div class="marca"><img class="sling" src="marca/sling.webp" alt="Sling"><span class="x"></span><span class="nucleo"><img src="marca/nucleo-simbolo-verde.webp" alt="">Núcleo Pocket</span></div>
+  <div class="kicker"><img src="marca/nucleo-simbolo-verde.webp" alt="">Como a conversa anda</div>
   <h2>Oito passos, <span class="verde">um de cada vez</span></h2>
   <div class="grade" id="grade"></div>
   <div class="destaque" id="destaque">Só vira código depois que você viu e concordou</div>

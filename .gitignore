@@ -8,5 +8,3 @@ graphify-out/
 .DS_Store
 *.pyc
 __pycache__/
-docs/contexto/*
-!docs/contexto/README.md

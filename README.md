@@ -1,6 +1,6 @@
 # SIA
 
-![SIA, do pedido ao sistema pronto. Crie um sistema conversando com a IA, mesmo sem saber programar](docs/readme/imagens/capa.png)
+![Sling e Núcleo Pocket. SIA, do pedido ao sistema pronto. Crie um sistema conversando com a IA, mesmo sem saber programar](docs/readme/imagens/capa.png)
 
 Um acompanhante para criar um sistema conversando com a IA, mesmo sem saber programar.
 
@@ -18,7 +18,7 @@ Um acompanhante para criar um sistema conversando com a IA, mesmo sem saber prog
 - **O Claude Code instalado.** É o programa do Claude que trabalha dentro do seu computador. Ele pede uma conta do Claude nos planos Pro, Max, Team ou Enterprise. O passo a passo oficial, em português, está no [início rápido do Claude Code](https://code.claude.com/docs/pt/quickstart).
 - **Saber abrir o terminal.** O terminal é o programa onde se digitam comandos. Se você nunca abriu um, o [guia de terminal](https://code.claude.com/docs/pt/terminal-guide) mostra como, em poucos minutos.
 - **Uma pasta vazia para o sistema novo.** Crie uma pasta com o nome do sistema, por exemplo `clinica`, onde preferir. Cada sistema ganha a sua pasta.
-- **Os seus arquivos, se tiver.** Planilha, lista de preços, documento da empresa ou regra escrita que o sistema precisa respeitar. Separe agora. O SIA vai pedir para colocar na pasta `docs/contexto/` do projeto antes de escrever o combinado. Esses arquivos ficam no seu computador e não vão para a internet.
+- **Os seus arquivos, se tiver.** Planilha, lista de preços, documento da empresa ou regra escrita que o sistema precisa respeitar. Separe agora. O SIA vai pedir para colocar na pasta `docs/contexto/` do projeto antes de escrever o combinado. Esses arquivos não vão para o GitHub. Para escrever o combinado, a IA lê o que está neles, do mesmo jeito que lê o que você escreve na conversa. Não coloque senha nem dado sensível de cliente.
 
 Conta no Supabase (onde os dados do sistema ficam guardados) e na Vercel (onde o sistema fica no ar) só quando o SIA pedir. Não precisa criar antes.
 
@@ -133,7 +133,7 @@ Você não precisa confiar na palavra da IA. O teste mostra.
 
 **Funciona num sistema que eu já tenho?** Sim. O SIA lê o que já existe e segue as ferramentas que estão lá.
 
-**E se o sistema já tem gente usando?** O SIA pergunta isso antes de mexer no banco de dados. Se tiver, ele pode consultar os dados livremente. Para mudar alguma coisa, explica o efeito e espera o seu sim. Apagar dados que alguém guardou ele não faz, nem se você pedir.
+**E se o sistema já tem gente usando?** O SIA pergunta isso antes de mexer no banco de dados. Se tiver, ele pode consultar os dados livremente. Para mudar alguma coisa, explica o efeito e espera o seu sim. Apagar dados só acontece se você pedir uma exclusão específica. Antes, ele guarda uma cópia no banco, com a mesma regra de quem vê, diz em frases o que vai sair e espera o seu sim para aquilo.
 
 **Onde ficam meus dados?** Onde você escolher. O SIA sugere o Supabase, um serviço que guarda as informações e os logins, e só usa com o seu sim.
 
@@ -147,7 +147,7 @@ Quando o código nasce, um `AGENTS.md` curto guarda o comando da prova para a se
 
 Toda mensagem dentro de uma etapa abre com `**Etapa: <nome>**`. O combinado leva (PRD), a cara leva (Design System, DS) e a prova e a construção levam (TDD), os nomes das aulas do Núcleo. RLS, migration, deploy e MCP ficam fora da conversa.
 
-O primeiro plano é o pedaço em que o "deu certo" da pessoa acontece. Com tela, a parte 1 abre essa página. Se ela disser que vai até o fim, o agente percorre a lista e a prova sozinho e chama quando estiver pronto na máquina. O sim do combinado e o da cara continuam. Colocar no ar continua sendo outro passo. Se gente já usa o sistema, ler o banco segue. Mudar o banco pede um sim. Apagar dado não segue. Se ela pedir alteração automática, cada mudança nasce com o arquivo que desfaz, em `docs/sia/banco/`.
+O primeiro plano é o pedaço em que o "deu certo" da pessoa acontece. Com tela, a parte 1 abre essa página. Se ela disser que vai até o fim, o agente percorre a lista e a prova sozinho e chama quando estiver pronto na máquina. O sim do combinado e o da cara continuam. Colocar no ar continua sendo outro passo. Se gente já usa o sistema, ler o banco segue. Mudar o banco pede um sim. Apagar dado só pela saída de `dados`: cópia no banco com a mesma regra de quem vê, o que sai em frases sem as linhas, e um sim citando aquilo. Se ela pedir alteração automática, cada mudança nasce com o arquivo que desfaz, em `docs/sia/banco/`.
 
 A mesma conta mora num lugar só. Botão que salva, envia ou apaga não aceita outro clique enquanto a ação corre. O arquivo `.env` fica na máquina. O exemplo, quando o projeto precisa de variável, leva o nome e uma frase, sem o valor. Se o combinado usar uma chamada que cobra por uso, a prova inclui o limite por pessoa. Na hora de colocar no ar, falha crítica ou alta numa dependência segura o link. A pasta que ainda não é um repositório ganha `git init` antes do primeiro código de produto, e esse passo não faz commit.
 
@@ -155,15 +155,16 @@ Na hora da prova, se houver tela web e o projeto ainda não tiver ferramenta, a 
 
 A instalação é sempre por projeto. No Claude, `--scope project`. Sem esse escopo, o padrão é a conta inteira, e o hook entra em toda pasta. Codex, Grok, Kimi e Qwen seguem a mesma regra, cada um do seu jeito, em [docs/install](docs/install).
 
+No fim da lista, quando o agente consegue chamar outro, a revisão é de um revisor que só lê. Ele devolve o que é grave, o que é importante e o que é miúdo. Onde não houver esse chamado, a revisão é do mesmo autor, e isso é dito.
+
 O time, quando a pessoa pede papéis separados, nasce em `squads/`, em português, no mesmo formato sempre. Construir o sistema continua numa conversa só. Quando o repositório já tem código, o agente monta um mapa de quem chama quem, só do código, nesta máquina, sem hook.
 
 ```text
 plugins/sia/skills/     as 15 skills, de verdade
-plugins/sia/agents/     o agente que escreve times
+plugins/sia/agents/     o revisor, que só lê, e o agente que escreve times
 skills/                 atalho para a pasta de skills
 docs/install/           um arquivo por agente
 docs/harness.md         como Claude, Codex, Grok, Kimi e Qwen carregam a mesma biblioteca
-docs/contexto/          onde a pessoa coloca planilha e documento
 docs/readme/            guia de comunicação, imagens deste README e os HTML que as geram
 references/SOURCES.md   de onde veio cada instrução, com commit e licença
 ```
