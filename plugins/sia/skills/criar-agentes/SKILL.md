@@ -15,7 +15,9 @@ description: >
 
 Com a pessoa, siga "Como falar" em `comecar`. Não diga o nome desta skill. Abra com **Etapa: o time**. Diga "time". A pasta se chama `squads/`.
 
-Faça nesta sessão. A pergunta e a espera não cabem num subagente. O agente `criar-agentes` só entra depois: quando o sim já foi dado nesta conversa, com o que o time entrega e os papéis. Ele escreve os arquivos e roda o validador. Sem esse sim, não chame o agente.
+Faça nesta sessão. Depois do sim, escreva os arquivos você mesmo e rode o validador. Não chame subagente para isso.
+
+O time é texto. Esta sessão lê e assume um papel por vez. Diga isso à pessoa. Ele não constrói o sistema.
 
 ## A lei
 
@@ -310,3 +312,5 @@ O caminho e os papéis, em frase curta. Ela lê o `README.md` do time.
 | "O validador reclamou, mas está bom" | Reclamar é fora da forma. Ajuste e rode de novo. |
 | "Um papel solto na raiz" | Até um papel mora em `squads/<id>/`. |
 | "Copio um time que já vi" | O pedido desta pessoa. A forma, não o elenco. |
+| "Chamo um subagente para escrever" | Depois do sim, esta conversa escreve e valida. |
+| "O time roda sozinho" | O time é texto. Esta sessão assume um papel por vez. |

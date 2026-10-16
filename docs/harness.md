@@ -82,4 +82,5 @@ Antes de escrever o combinado na forma cheia, o agente oferece `docs/contexto/` 
 - Com tela, a parte 1 abre esse caminho no navegador. Parte só de banco ou só de configuração não vem antes.
 - "Vai até o fim" percorre a lista do combinado aprovado até a conferência, sem perguntar entre as partes. Não pula o sim do combinado nem o da cara. Não coloca no ar. A mesma falha, pelo mesmo motivo, duas vezes, para o loop.
 - `Uso: ativo`: consulta segue, alteração pede sim, delete só pela saída para apagar de `dados`. A cópia fica no banco, com a mesma regra de quem vê o quê, e o registro leva tabela, filtro, contagem e o nome da cópia, sem as linhas. O sim cita aquela exclusão. Alteração automática só com a linha `Banco ativo: alterações com volta`, arquivo de volta antes, registro em `docs/sia/banco/`. Rodar a volta espera outro sim.
-- No fim da lista, o `revisor` lê o trabalho e devolve grave, importante e miúdo. Ele não edita. Sem subagente, a revisão é do mesmo autor, e isso é dito.
+- No fim da lista, o `revisor` lê arquivo e diff e devolve grave, importante e miúdo. O comando de prova fica na conversa principal. Cada achado se confirma no código antes de corrigir. Sem subagente, a revisão é do mesmo autor, e isso é dito.
+- O time em `squads/` é texto. A sessão lê e assume um papel por vez. Papel que constrói o sistema não entra.

@@ -29,7 +29,7 @@ Se `docs/contexto/` tiver arquivo além do README, o plano usa esses dados. Não
 
 Se o repositório já tem código, invoque `mapa` antes de escolher os arquivos. Quem chama a parte entra na lista. O mapa não vira o plano.
 
-Se o combinado pede papéis separados, a parte que escreve o time invoca `criar-agentes`. O plano não inventa outro formato de agente.
+Se o combinado pede papéis do negócio, separados do sistema, a parte que escreve o time segue `criar-agentes` nesta conversa. Papel que constrói o sistema não entra. O plano não inventa outro formato de agente.
 
 Se `Dados` for Supabase, a parte que muda o banco escreve o arquivo e sobe pela ligação de `dados`. O plano não manda colar SQL no painel.
 

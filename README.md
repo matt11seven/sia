@@ -155,13 +155,13 @@ Na hora da prova, se houver tela web e o projeto ainda não tiver ferramenta, a 
 
 A instalação é sempre por projeto. No Claude, `--scope project`. Sem esse escopo, o padrão é a conta inteira, e o hook entra em toda pasta. Codex, Grok, Kimi e Qwen seguem a mesma regra, cada um do seu jeito, em [docs/install](docs/install).
 
-No fim da lista, quando o agente consegue chamar outro, a revisão é de um revisor que só lê. Ele devolve o que é grave, o que é importante e o que é miúdo. Onde não houver esse chamado, a revisão é do mesmo autor, e isso é dito.
+No fim da lista, quando o agente consegue chamar outro, a revisão é de um revisor que só lê arquivo e diff. A prova quem roda é a conversa principal. Ele devolve o que é grave, o que é importante e o que é miúdo. Onde não houver esse chamado, a revisão é do mesmo autor, e isso é dito.
 
-O time, quando a pessoa pede papéis separados, nasce em `squads/`, em português, no mesmo formato sempre. Construir o sistema continua numa conversa só. Quando o repositório já tem código, o agente monta um mapa de quem chama quem, só do código, nesta máquina, sem hook.
+O time, quando a pessoa pede papéis do negócio, nasce em `squads/`, em português, no mesmo formato sempre. É texto: esta conversa lê e assume um papel por vez. Construir o sistema continua numa conversa só. Quando o repositório já tem código, o agente monta um mapa de quem chama quem, só do código, nesta máquina, sem hook.
 
 ```text
 plugins/sia/skills/     as 15 skills, de verdade
-plugins/sia/agents/     o revisor, que só lê, e o agente que escreve times
+plugins/sia/agents/     o revisor, que só lê
 skills/                 atalho para a pasta de skills
 docs/install/           um arquivo por agente
 docs/harness.md         como Claude, Codex, Grok, Kimi e Qwen carregam a mesma biblioteca
