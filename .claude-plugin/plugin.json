@@ -1,7 +1,7 @@
 {
   "name": "sia",
-  "description": "Ajuda a construir um site em linguagem simples: combinado, cara das telas, prova antes do código, Supabase e Vercel como sugestão.",
+  "description": "Ajuda a planejar, documentar, construir e testar um sistema. O caminho é o combinado, a cara e a prova. Supabase é a sugestão de dados. Postgres com Drizzle é a segunda.",
   "version": "0.1.0",
   "license": "MIT",
-  "keywords": ["site", "web", "supabase", "vercel", "tdd"]
+  "keywords": ["sistema", "planejamento", "testes", "supabase", "vercel", "tdd"]
 }

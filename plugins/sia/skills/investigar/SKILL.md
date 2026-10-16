@@ -1,7 +1,7 @@
 ---
 name: investigar
 description: >
-  Use em qualquer bug, teste vermelho ou comportamento inesperado de um site,
+  Use em qualquer bug, teste vermelho ou comportamento inesperado de um sistema,
   antes de propor correção. Gatilhos: "não guarda", "sumiu", "quebrou",
   "não funciona", "o botão", erro, falha intermitente. Quatro fases, nesta
   ordem. Sem causa, sem correção. Use when debugging any web bug before
@@ -12,7 +12,7 @@ description: >
 
 # Investigar
 
-Com a pessoa, siga "Como falar" em `comecar`. Não diga o nome desta skill. Uma frase de onde estamos, depois a pergunta ou o que há para olhar.
+Com a pessoa, siga "Como falar" em `comecar`. Não diga o nome desta skill. Abra com **Fase: achar a causa**, depois uma frase de onde estamos, depois a pergunta ou o que há para olhar.
 
 ## A lei
 
@@ -31,7 +31,7 @@ Teste vermelho, bug, comportamento estranho, lentidão, build quebrado, integra�
 1. Leia a mensagem de erro inteira. Linha, arquivo, código.
 2. Reproduza. Quais passos, toda vez? Se não reproduz, junte dado. Não chute.
 3. Olhe o que mudou: diff, commit, dependência, ambiente.
-4. Se atravessa mais de uma camada (tela → servidor → banco), registre o que entra e o que sai de cada camada. Rode uma vez. Aí diga onde quebra.
+4. Se atravessa mais de uma camada (tela → servidor → banco), registre o que entra e o que sai de cada camada. Rode uma vez. Aí diga onde quebra. Se o repositório tem código, invoque `mapa` e peça o caminho entre a entrada e o dado. Confirme no arquivo.
 5. Se o valor ruim está fundo, suba a pilha até a origem. Corrija na origem.
 
 Pare de explorar quando der para nomear a causa ou o bloqueio exato.

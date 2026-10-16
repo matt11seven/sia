@@ -1,10 +1,16 @@
 # Instalar no Grok
 
+`grok plugin install` grava o plugin na conta e ele pode acordar em toda pasta. Para o harness ficar só neste projeto, copie o plugin para dentro dele.
+
+Na pasta do projeto que vai ser construído, com o repositório do SIA já clonado ao lado:
+
 ```bash
-grok plugin marketplace add .
-grok plugin install sia --trust
+mkdir -p .grok/plugins/sia
+cp -R /caminho/do/sia/plugins/sia/. .grok/plugins/sia/
 ```
 
-Sessão nova. O `SessionStart` do Grok não entrega texto. As skills precisam estar de verdade em `plugins/sia/skills` (o Grok copia a pasta e ignora atalho). Depois de mudar uma skill, rode `grok plugin update sia` e abra outra sessão. `grok inspect` deve listar as 13 skills do plugin.
+A cópia precisa das skills de verdade, em `.grok/plugins/sia/skills`. O Grok ignora atalho. Confie o plugin deste projeto e abra uma sessão nova aqui. Outra pasta não tem `.grok/plugins/sia` e não carrega o harness.
 
-Prova: "Quero um site para marcar horários da minha clínica." A description de `comecar` tem que puxar `entender` antes de código.
+Depois de mudar uma skill no SIA, copie de novo e abra outra sessão. `grok inspect`, nesta pasta, deve listar as 15 skills. O agente que escreve times fica em `.grok/plugins/sia/agents`.
+
+Prova: "Quero um sistema que avisa quando o estoque acaba." A description de `comecar` tem que puxar `entender` antes de código, sem tela e sem Vercel. Esse pedido não cria time de agentes.

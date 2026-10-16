@@ -14,3 +14,4 @@
 | Disparar um subagente | Agent. Se não existir, faça na sessão e diga |
 | Abrir uma página | a ferramenta de browser da sessão. Se não houver, diga o que ficou sem prova |
 | Chamar Supabase ou Vercel | o MCP já ligado, pelo nome real da ferramenta |
+| Postgres com Drizzle | código e SQL no repositório. Sem MCP |

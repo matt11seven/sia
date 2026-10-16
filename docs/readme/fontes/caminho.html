@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>SIA · caminho</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .palco { --w: 1200px; --h: 720px; padding: 64px 84px 0 96px; }
+  h2 { font-size: 44px; margin: 14px 0 34px; }
+  .grade { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 1fr; gap: 20px; }
+  .passo { padding: 20px 20px 22px; opacity: 0.42; transition: none; }
+  .passo .num {
+    width: 38px; height: 38px; border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 18px;
+    background: #DCE6E1; color: #FFFFFF; margin-bottom: 14px;
+  }
+  .passo .topo { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .passo .topo .num { margin-bottom: 0; }
+  .sigla { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 15px; letter-spacing: 1.5px; color: var(--accent-light); padding: 4px 8px; border-radius: var(--radius); background: var(--caixa-verde); }
+  .passo h3 { font-size: 21px; font-weight: 800; text-transform: uppercase; margin-bottom: 6px; }
+  .passo p { font-size: 18px; line-height: 1.3; color: var(--text-muted); }
+  .passo.feito { opacity: 1; }
+  .passo.feito .num { background: var(--accent); }
+  .passo.agora { opacity: 1; box-shadow: var(--sombra-destaque); }
+  .passo.agora .num { background: var(--accent-strong); }
+  .destaque {
+    margin-top: 26px; padding: 16px 22px; border-radius: var(--radius);
+    background: var(--caixa-verde); font-size: 22px; font-weight: 700;
+    visibility: hidden;
+  }
+  .destaque.on { visibility: visible; }
+</style>
+</head>
+<body>
+<div class="palco">
+  <span class="canto cima"></span><span class="canto baixo"></span>
+  <img class="marca-canto" src="marca/sling-padrao-preto-hd.png" alt="Sling">
+  <div class="tag">Como a conversa anda</div>
+  <h2>Oito passos, <span class="verde">um de cada vez</span></h2>
+  <div class="grade" id="grade"></div>
+  <div class="destaque" id="destaque">Só vira código depois que você viu e concordou</div>
+</div>
+<script>
+const passos = [
+  ['Oi', 'O SIA se apresenta e repete o seu pedido numa frase'],
+  ['Quem usa', 'Uma pergunta sobre quem vai usar e o que precisa fazer'],
+  ['O combinado', 'Um texto curto com o que o sistema faz e o que fica de fora', 'PRD'],
+  ['A cara', 'Cores, letras e o jeito das telas, antes de construir', 'DS'],
+  ['A base', 'As ferramentas sugeridas, que só valem com o seu sim'],
+  ['A lista', 'O trabalho dividido em partes pequenas'],
+  ['A prova', 'Cada parte só fecha com um teste passando', 'TDD'],
+  ['No ar', 'Publicar, se você quiser que outras pessoas usem'],
+];
+const grade = document.getElementById('grade');
+grade.innerHTML = passos.map(([t, d, s], i) =>
+  `<div class="card passo"><div class="topo"><div class="num">${i + 1}</div>${s ? `<span class="sigla">${s}</span>` : ''}</div><h3>${t}</h3><p>${d}</p></div>`).join('');
+const cards = [...grade.children];
+const destaque = document.getElementById('destaque');
+
+const INICIO = 500, PASSO = 900;
+window.DURACAO = 11000;
+window.render = (t) => {
+  cards.forEach((c, i) => {
+    const entra = INICIO + i * PASSO;
+    c.classList.toggle('feito', t >= entra);
+    c.classList.toggle('agora', t >= entra && t < entra + PASSO && i < cards.length);
+  });
+  // o último fica em destaque até o fim
+  if (t >= INICIO + 7 * PASSO) cards[7].classList.add('agora');
+  destaque.classList.toggle('on', t >= INICIO + 8 * PASSO + 300);
+};
+window.render(window.DURACAO);
+</script>
+</body>
+</html>

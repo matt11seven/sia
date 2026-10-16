@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>SIA · prova</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .palco { --w: 1200px; --h: 675px; padding: 64px 84px 0 96px; }
+  h2 { font-size: 44px; margin: 14px 0 30px; }
+  .linhas { display: flex; flex-direction: column; gap: 16px; }
+  .parte { display: grid; grid-template-columns: 46px 1fr 260px; align-items: center; gap: 20px; padding: 18px 22px; }
+  .parte .num {
+    width: 42px; height: 42px; border-radius: var(--radius); background: var(--accent);
+    color: #FFFFFF; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 19px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .parte b { display: block; font-size: 23px; }
+  .parte .cmd { display: block; margin-top: 6px; font-size: 15px; color: var(--accent-light); visibility: hidden; }
+  .parte .cmd.on { visibility: visible; }
+  .estado {
+    position: relative; height: 44px; border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase;
+    background: var(--bg-deep); color: var(--text-muted); overflow: hidden;
+  }
+  .estado.falhou { background: var(--caixa-rosa); color: var(--pink); }
+  .estado.construindo { background: var(--bg-deep); color: var(--accent-light); }
+  .estado.passou { background: var(--accent); color: #FFFFFF; }
+  .estado .barra { position: absolute; left: 0; bottom: 0; height: 4px; background: var(--accent); }
+  .parte.passou { box-shadow: var(--sombra-destaque); }
+  .destaque {
+    margin-top: 24px; padding: 16px 22px; border-radius: var(--radius);
+    background: var(--caixa-verde); font-size: 22px; font-weight: 700; visibility: hidden;
+  }
+  .destaque.on { visibility: visible; }
+</style>
+</head>
+<body>
+<div class="palco">
+  <span class="canto cima"></span><span class="canto baixo"></span>
+  <img class="marca-canto" src="marca/sling-padrao-preto-hd.png" alt="Sling">
+  <div class="tag">A prova</div>
+  <h2>Cada parte só fecha <span class="verde">com o teste passando</span></h2>
+  <div class="linhas" id="linhas"></div>
+  <div class="destaque" id="destaque">Primeiro o teste falha, depois a parte é construída até ele passar</div>
+  <div class="aviso-exemplo">Exemplo · dados fictícios</div>
+</div>
+<script>
+const partes = [
+  ['O paciente marca a consulta', 'npm test → 3 passaram'],
+  ['A recepção vê a agenda do dia', 'npm test → 5 passaram'],
+  ['Um paciente não vê a consulta do outro', 'npx playwright test → 2 passaram'],
+];
+const linhas = document.getElementById('linhas');
+linhas.innerHTML = partes.map(([n, c], i) => `
+  <div class="card parte">
+    <div class="num">${i + 1}</div>
+    <div><b>${n}</b><span class="cmd mono">${c}</span></div>
+    <div class="estado"><span class="rot">Na fila</span><span class="barra"></span></div>
+  </div>`).join('');
+const els = [...linhas.children];
+const destaque = document.getElementById('destaque');
+
+const INICIO = 600, ENTRE = 2300;
+window.DURACAO = 10800;
+window.render = (t) => {
+  els.forEach((el, i) => {
+    const t0 = INICIO + i * ENTRE;
+    const estado = el.querySelector('.estado');
+    const rot = el.querySelector('.rot');
+    const barra = el.querySelector('.barra');
+    let fase = 'fila';
+    if (t >= t0) fase = 'falhou';
+    if (t >= t0 + 800) fase = 'construindo';
+    if (t >= t0 + 1700) fase = 'passou';
+    estado.className = 'estado ' + (fase === 'fila' ? '' : fase);
+    rot.textContent = { fila: 'Na fila', falhou: '✕ Teste falhou', construindo: 'Construindo', passou: '✓ Passou' }[fase];
+    barra.style.width = fase === 'construindo' ? Math.round(((t - t0 - 800) / 900) * 100) + '%' : '0';
+    el.classList.toggle('passou', fase === 'passou');
+    el.querySelector('.cmd').classList.toggle('on', fase === 'passou');
+  });
+  destaque.classList.toggle('on', t >= INICIO + 2 * ENTRE + 2100);
+};
+window.render(window.DURACAO);
+</script>
+</body>
+</html>

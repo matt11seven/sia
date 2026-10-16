@@ -1,13 +1,13 @@
 {
   "name": "sia",
-  "description": "Skills para construir um site com quem não programa.",
+  "description": "Skills para planejar, documentar, construir e testar um sistema.",
   "owner": {
     "name": "SIA"
   },
   "plugins": [
     {
       "name": "sia",
-      "description": "Entender, combinar, desenhar, provar e publicar um site.",
+      "description": "Planejar, documentar, construir e testar um sistema.",
       "version": "0.1.0",
       "source": "./plugins/sia",
       "license": "MIT"

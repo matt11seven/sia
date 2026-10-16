@@ -1,9 +1,9 @@
 ---
 name: conferir
 description: >
-  Use imediatamente antes de dizer que um site ficou pronto, que um bug foi
-  corrigido, que os testes passaram ou que pode publicar. Exige o comando
-  rodado agora e a saída lida. Em tela, inclui abrir o site. Gatilhos:
+  Use imediatamente antes de dizer que um sistema ficou pronto, que um bug
+  foi corrigido, que os testes passaram ou que pode publicar. Exige o
+  comando rodado agora e a saída lida. Se houver tela, inclui abrir. Gatilhos:
   "pronto", "funcionou", "pode subir", "done", "ship it".
 ---
 
@@ -11,7 +11,7 @@ description: >
 
 # Conferir
 
-Com a pessoa, siga "Como falar" em `comecar`. Não diga o nome desta skill. Uma frase de onde estamos, depois a pergunta ou o que há para olhar.
+Com a pessoa, siga "Como falar" em `comecar`. Não diga o nome desta skill. Abra com **Etapa: a conferência**, depois uma frase de onde estamos, depois a pergunta ou o que há para olhar.
 
 ## A lei
 
@@ -33,15 +33,22 @@ Antes de qualquer frase de sucesso:
 
 Pular um passo é afirmar no escuro.
 
+Se existir `AGENTS.md` na raiz, os comandos da seção Prova são os que você roda. Não invente outro.
+
+Se existir plano em `docs/sia/planos/`, cada parte precisa da linha `Parte N: pronta (<comando> → <resultado>)` em `docs/sia/andamento.md`. Parte com checkbox aberto, ou sem comando e resultado, bloqueia "ficou pronto". Parte adiada no andamento não entra nessa conta.
+
 ## O que cada frase exige
 
 | Frase | Exige | Não basta |
 | --- | --- | --- |
 | Os testes passaram | saída do comando de teste, zero falhas, nesta conversa | uma corrida antiga |
+| O código está no formato | se `Sistema` em `docs/sia/escolhas.md` incluir ESLint: o lint rodado agora, zero erros. Se incluir TypeScript: a checagem de tipo rodada agora, zero erros | o lint no lugar da suíte. Sem esses dois na base, esta linha não se aplica. Sem piso de cobertura |
 | O bug sumiu | a prova do sintoma original, verde, depois de ter falhado | o código mudou |
-| A tela está certa | o site aberto no fluxo principal, no vazio e no erro, em 375 e em 1280 | o teste de componente sozinho |
-| Os dados estão certos | `get_advisors` de segurança sem aviso de tabela aberta, mais a prova de quem vê o quê | a tela bonita |
-| Dá para publicar | esta skill verde e `revisar` feito | vontade |
+| A tela está certa | o Playwright de quem usa, rodado agora, e a tela aberta no fluxo principal, no vazio e no erro, em 375 e em 1280, com teclado, foco visível e console limpo | o Vitest sozinho. Sem tela no combinado, esta linha não se aplica |
+| O sistema cruzou a fronteira | o Playwright de sistema, rodado agora, no fluxo que entra e chega no dado | mock do caminho inteiro. Sem esse fluxo no combinado, esta linha não se aplica |
+| Os dados estão certos | se Dados for Supabase: `get_advisors` de segurança sem aviso de tabela aberta, mais a prova de quem vê o quê. Se for Drizzle: a prova de sistema de quem vê o quê, com a regra no servidor | a tela bonita |
+| O segredo ficou fora do Git | `git ls-files` não lista `.env` nem outro `.env.*` com valor. `.env.example`, se existir, não tem valor | o exemplo com senha de verdade |
+| Dá para publicar | esta skill verde e `revisar` feito | vontade. O audit de dependência não entra aqui: critical ou high bloqueiam o ar, em `publicar` |
 
 Sem browser na sessão, diga com todas as letras o que ficou sem prova visual. Não transforme isso em "a tela está certa".
 
@@ -57,6 +64,7 @@ Distinga: passou, falhou, ferramenta ausente, bloqueado. Não edite produto nest
 | --- | --- |
 | "Deve funcionar agora" | Rode. |
 | "Estou confiante" | Confiança não é saída de comando. |
-| "O linter passou" | Linter não é a suíte nem o browser. |
+| "O linter passou" | Linter e tipo entram quando a base os tem. Não substituem a suíte nem o browser. |
+| "A parte está pronta na minha cabeça" | Sem comando e resultado no andamento, a parte segue aberta. |
 | "Cheque parcial chega" | Parcial não prova o que ficou de fora. |
 | "Vou só alinhar um espaçamento" | A prova passou. Espaçamento novo é outro pedido. |

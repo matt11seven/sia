@@ -12,5 +12,6 @@ O plugin entrega as skills. Multi-agente, se um dia uma skill pedir subagente, d
 | Perguntar com opções | uma pergunta no chat, com a recomendada primeiro |
 | Disparar um subagente | só se a sessão tiver spawn. Senão, na sessão |
 | Chamar Supabase ou Vercel | o MCP ligado, pelo nome real |
+| Postgres com Drizzle | código e SQL no repositório. Sem MCP |
 
 Confie na lista de ferramentas desta sessão quando ela divergir desta tabela.

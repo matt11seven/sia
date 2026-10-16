@@ -2,17 +2,19 @@
 name: testar-primeiro
 description: >
   Use antes de escrever código de produto em feature, correção ou mudança de
-  comportamento de um site. Gatilhos: implementar, corrigir, "faz funcionar",
+  comportamento de um sistema. Gatilhos: implementar, corrigir, "faz funcionar",
   "salva", "o botão", bug já com causa achada por investigar. A prova nasce
-  primeiro e tem que falhar pelo motivo certo. Use when implementing any web
-  feature or bugfix, before writing implementation code. TDD.
+  primeiro e tem que falhar pelo motivo certo. A regra vai para o Vitest. Quem
+  usa e o sistema vão para o Playwright. Se a base ainda não foi escolhida,
+  sugira a de escolher e espere. Use when implementing any system feature or
+  bugfix, before writing implementation code. TDD.
 ---
 
-> Adaptado de obra/superpowers, skill `test-driven-development`, commit `8ca22dba`, licença MIT. A lei, o ciclo e a tabela de desculpas foram mantidos. O exemplo é de site.
+> Adaptado de obra/superpowers, skill `test-driven-development`, commit `8ca22dba`, licença MIT. A lei, o ciclo e a tabela de desculpas foram mantidos. O exemplo é de sistema.
 
 # Testar primeiro
 
-Com a pessoa, siga "Como falar" em `comecar`. Não diga o nome desta skill. Uma frase de onde estamos, depois a pergunta ou o que há para olhar. Com a pessoa, chame de "a prova antes de construir".
+Com a pessoa, siga "Como falar" em `comecar`. Não diga o nome desta skill. Numa mudança pequena, abra com **Etapa: a prova antes de construir (TDD)**. Chamada de dentro de `fazer`, a linha continua a de `fazer`. Depois, uma frase de onde estamos, depois a pergunta ou o que há para olhar. Com a pessoa, chame de "a prova antes de construir".
 
 ## A lei
 
@@ -30,21 +32,36 @@ Sempre: comportamento novo, correção, refatoração que muda comportamento.
 
 Exceções, ditas em voz alta e aceitas pela pessoa: protótipo que será jogado fora, arquivo gerado, configuração sem comportamento.
 
+## Três provas
+
+A lei vale para as três. Nenhuma nasce depois do código.
+
+1. **Regra.** Vitest, ou o teste rápido que o projeto já usa. Sem browser. Uma afirmação. É a primeira prova quando o comportamento é uma regra.
+2. **Quem usa.** Playwright no browser. A pessoa abre, preenche, envia e vê o resultado, o erro e o vazio. Escrita antes da tela. Só se o combinado tiver tela. O gesto é o mesmo que `conferir` abre.
+3. **Sistema.** Playwright com o sistema de pé. O fluxo cruza entrada, regra e dado, no banco de teste, sem mock do caminho inteiro. Serviço de fora pode ser trocado na borda. Sem tela, e com uma entrada que outro sistema chama, a prova usa o `request` do Playwright nessa entrada. Uma prova por fluxo crítico do combinado.
+
+Num fluxo com tela, a parte da regra começa vermelha no Vitest. A parte do fluxo começa vermelha no Playwright, a de quem usa e a de sistema quando cruza dado de verdade. Função pura não ganha Playwright. Fluxo que uma pessoa faz não termina só no Vitest.
+
+Se `docs/sia/escolhas.md` não tiver a linha Prova, ou ela disser "ainda não", volte para a base sugerida de `escolher` e espere. Não instale no escuro. Não escreva a prova numa ferramenta que a pessoa não aceitou.
+
 ## O ciclo
 
 Para cada prova do combinado, nesta ordem. Diga o passo.
 
 1. **Vermelho.** Escreva a prova daquele critério. Rode. Ela falha porque o comportamento não existe, não porque o arquivo está quebrado. Se passar agora, a prova está testando o que já existe. Corrija a prova. Se der erro de sintaxe, conserte e rode de novo até falhar pelo motivo certo.
-2. **Verde.** O mínimo de código para passar. Rode. Esta prova passa e a suíte do projeto passa. Falhou a prova nova: mexa no código, não na prova, a menos que a prova esteja errada em relação ao combinado. Outra prova ficou vermelha: conserte agora. "A suíte" é o comando de teste do projeto, não só o arquivo que você criou.
+2. **Verde.** O mínimo de código para passar. Se este for o primeiro arquivo de produto, faça antes a seção "Antes do primeiro arquivo de produto" de `fazer`. Rode. Esta prova passa e a suíte do projeto passa. Falhou a prova nova: mexa no código, não na prova, a menos que a prova esteja errada em relação ao combinado. Outra prova ficou vermelha: conserte agora. "A suíte" é o comando de teste do projeto, não só o arquivo que você criou.
 3. **Refatorar.** Limpe nome e repetição sem mudar comportamento. A suíte continua verde. Sem comportamento novo neste passo.
 
 Depois, a próxima prova.
 
 ## Onde a prova mora
 
-- Regra, transformação de dado, "quem vê o quê": teste automatizado.
-- Tela: o roteiro (teste de componente ou os passos que o browser vai cumprir) é escrito antes do componente. A implementação vem depois. Abrir o site de verdade continua obrigatório em `conferir`.
+- Regra e "quem vê o quê" na lógica: Vitest.
+- Quem usa, se houver tela: Playwright no browser, antes do componente. Abrir de verdade continua obrigatório em `conferir`.
+- Sistema: Playwright no fluxo que cruza a fronteira. Sem tela, o `request`, se houver entrada.
 - Bug: a primeira mudança de comportamento é uma prova que reproduz a falha. `investigar` entrega a causa. Esta skill entrega a prova.
+- Botão que salva, envia ou apaga: a prova de quem usa inclui o segundo clique no meio da ação. O efeito acontece uma vez.
+- Limite por pessoa: se o combinado tiver essa prova numa chamada que cobra por uso, ela nasce primeiro, no Vitest. Sem essa linha no combinado, não invente a prova.
 
 ## Exemplo
 
@@ -62,6 +79,30 @@ test("Marina não vê o horário da Ana", async () => {
 Rode. A falha esperada é a lista ainda trazer o horário da Ana, ou a função ainda não existir.
 
 Verde: o mínimo para a lista da Marina só ter horários dela.
+
+Quem usa, no Playwright, antes da tela:
+
+```typescript
+test("Marina não vê o horário da Ana", async ({ page }) => {
+  await page.goto("/entrar");
+  await page.getByLabel("E-mail").fill("marina@example.com");
+  await page.getByRole("button", { name: "Entrar" }).click();
+  await expect(page.getByText("Ana")).toHaveCount(0);
+});
+```
+
+Sistema, no Playwright, contra a entrada real:
+
+```typescript
+test("a lista da Marina não traz a Ana", async ({ request }) => {
+  const resposta = await request.get("/api/horarios", {
+    headers: { cookie: cookieDaMarina },
+  });
+  expect(await resposta.json()).not.toEqual(
+    expect.arrayContaining([expect.objectContaining({ dono: "ana" })]),
+  );
+});
+```
 
 Refatorar só se o mínimo ficou repetido.
 
@@ -84,6 +125,8 @@ Pare e recomece se aparecer: código antes da prova, prova depois, prova que pas
 | "Preciso explorar antes" | Explore e jogue fora. A implementação começa na prova. |
 | "A prova está difícil" | A interface está difícil. Simplifique. |
 | "O bug é óbvio, corrijo e testo" | Primeiro a prova que mostra o bug. |
+| "O teste da regra chega para a tela" | Quem usa faz o gesto. A regra sozinha não abre a tela. |
+| "Mock do caminho inteiro chega" | A prova de sistema cruza a entrada real. Serviço de fora pode ser trocado na borda. |
 
 ## Antes de dizer que a parte acabou
 
@@ -92,3 +135,5 @@ Pare e recomece se aparecer: código antes da prova, prova depois, prova que pas
 - O código foi o mínimo para passar.
 - A suíte do projeto passou, e você leu a saída nesta conversa.
 - Canto e erro estão cobertos quando o combinado fala deles.
+- Se nasceu código de produto e não existe `AGENTS.md`, escreva o `AGENTS.md` e o `CLAUDE.md` das seções de `fazer`.
+- A pasta é um repositório e `.env` não está no Git. O passo está na seção "Antes do primeiro arquivo de produto" de `fazer`.

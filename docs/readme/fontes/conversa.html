@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>SIA · conversa</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .palco { --w: 1200px; --h: 780px; display: grid; grid-template-columns: 330px 1fr; gap: 44px; padding: 64px 70px 0 96px; }
+  h2 { font-size: 42px; margin: 14px 0 22px; }
+  .lado p { font-size: 21px; line-height: 1.4; color: var(--text-muted); }
+  .janela { display: flex; flex-direction: column; height: 668px; overflow: hidden; }
+  .barra {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 20px; border-bottom: 1px solid var(--linha);
+  }
+  .avatar {
+    width: 32px; height: 32px; border-radius: var(--radius); background: var(--accent);
+    color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center;
+  }
+  .barra b { font-size: 19px; }
+  .barra .mini { margin-left: auto; }
+  .msgs { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 12px; padding: 18px 20px 0; }
+  .msg {
+    position: relative; max-width: 86%; padding: 12px 16px; border-radius: var(--radius);
+    font-size: 18px; line-height: 1.38; visibility: hidden;
+  }
+  .msg.sia { align-self: flex-start; background: var(--bg-deep); }
+  .msg.pessoa { align-self: flex-end; background: var(--caixa-verde); font-weight: 600; }
+  .msg.on { visibility: visible; }
+  .msg .txt span.oculto { visibility: hidden; }
+  .pontos { position: absolute; left: 16px; top: 16px; display: none; gap: 6px; }
+  .pontos.on { display: flex; }
+  .pontos i { width: 9px; height: 9px; border-radius: 50%; background: var(--accent-light); opacity: 0.35; }
+  .pontos i.forte { opacity: 1; }
+  .arquivo {
+    align-self: flex-start; display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-radius: var(--radius); background: #FFFFFF; box-shadow: var(--sombra-destaque);
+    visibility: hidden;
+  }
+  .arquivo.on { visibility: visible; }
+  .arquivo .folha { width: 22px; height: 28px; border-radius: 2px; background: var(--accent); }
+  .arquivo b { display: block; font-size: 17px; }
+  .arquivo .mono { font-size: 13px; color: var(--text-muted); }
+  .entrada {
+    flex-shrink: 0; margin: 12px 20px 18px; padding: 12px 16px; border-radius: var(--radius);
+    background: var(--bg-deep); font-size: 18px; color: var(--text-muted); min-height: 48px;
+  }
+  .entrada .cursor { display: inline-block; width: 2px; height: 20px; background: var(--accent-strong); vertical-align: -3px; margin-left: 1px; }
+</style>
+</head>
+<body>
+<div class="palco">
+  <span class="canto cima"></span><span class="canto baixo"></span>
+  <div class="lado">
+    <div class="tag">A conversa</div>
+    <h2>Uma pergunta <span class="verde">por vez</span></h2>
+    <p>O SIA se apresenta, repete o pedido numa frase e faz uma pergunta. O combinado só é escrito depois da sua resposta.</p>
+  </div>
+  <div class="card janela">
+    <div class="barra"><div class="avatar">S</div><b>SIA</b><span class="mini">Em conversa</span></div>
+    <div class="msgs" id="msgs"></div>
+    <div class="entrada" id="entrada"></div>
+  </div>
+  <div class="aviso-exemplo">Exemplo</div>
+</div>
+<script>
+// Falas do SIA copiadas de plugins/sia/skills/comecar/SKILL.md (apresentação e frases de transição).
+const roteiro = [
+  { quem: 'pessoa', texto: 'Quero um sistema para a minha clínica marcar consultas', digita: [300, 1500], envia: 1700 },
+  { quem: 'sia', texto: 'Oi, eu sou o SIA. Te acompanho do pedido até o sistema pronto: a gente planeja, escreve o que ficou acertado, constrói e prova.', pontos: 2100, digita: [2900, 5000] },
+  { quem: 'sia', texto: 'Entendi: um sistema para os pacientes marcarem consulta. Quem vai usar, e o que essa pessoa precisa conseguir fazer?', pontos: 5400, digita: [6100, 7900] },
+  { quem: 'pessoa', texto: 'Os pacientes marcam o horário e a recepção vê a agenda do dia', digita: [8400, 9900], envia: 10100 },
+  { quem: 'sia', texto: 'Beleza. Vou escrever o que ficou acertado, num texto curto, para você ler.', pontos: 10500, digita: [11200, 12400] },
+];
+const ARQUIVO = 12900;
+window.DURACAO = 15500;
+
+const msgs = document.getElementById('msgs');
+const entrada = document.getElementById('entrada');
+const els = roteiro.map((r) => {
+  const el = document.createElement('div');
+  el.className = 'msg ' + r.quem;
+  const letras = [...r.texto].map((c) => `<span>${c}</span>`).join('');
+  el.innerHTML = `<div class="pontos"><i></i><i></i><i></i></div><div class="txt">${letras}</div>`;
+  msgs.appendChild(el);
+  return el;
+});
+const arquivo = document.createElement('div');
+arquivo.className = 'arquivo';
+arquivo.innerHTML = '<div class="folha"></div><div><b>O combinado</b><span class="mono">docs/sia/combinado.md</span></div>';
+msgs.appendChild(arquivo);
+
+const fracao = (t, [a, b]) => Math.max(0, Math.min(1, (t - a) / (b - a)));
+
+window.render = (t) => {
+  let digitando = '';
+  roteiro.forEach((r, i) => {
+    const el = els[i];
+    const spans = el.querySelectorAll('.txt span');
+    const pontos = el.querySelector('.pontos');
+    if (r.quem === 'pessoa') {
+      const n = Math.round(fracao(t, r.digita) * spans.length);
+      if (t >= r.digita[0] && t < r.envia) digitando = r.texto.slice(0, n);
+      el.classList.toggle('on', t >= r.envia);
+      spans.forEach((s) => s.classList.remove('oculto'));
+    } else {
+      el.classList.toggle('on', t >= r.pontos);
+      const n = Math.round(fracao(t, r.digita) * spans.length);
+      spans.forEach((s, k) => s.classList.toggle('oculto', t < r.digita[0] || k >= n));
+      const comPontos = t >= r.pontos && t < r.digita[0];
+      pontos.classList.toggle('on', comPontos);
+      const fase = Math.floor((t - r.pontos) / 220) % 3;
+      pontos.querySelectorAll('i').forEach((p, k) => p.classList.toggle('forte', comPontos && k === fase));
+    }
+  });
+  arquivo.classList.toggle('on', t >= ARQUIVO);
+  const cursor = Math.floor(t / 450) % 2 === 0 ? '<span class="cursor"></span>' : '';
+  entrada.innerHTML = digitando ? digitando + cursor : '<span style="opacity:.6">Escreva aqui</span>';
+};
+window.render(window.DURACAO);
+</script>
+</body>
+</html>

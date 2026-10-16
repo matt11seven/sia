@@ -13,5 +13,6 @@
 | Buscar na web | WebSearch |
 | Disparar um subagente | Agent. Implementar ou revisar: `subagent_type` coder. Explorar: explore. Planejar: plan. Não use `general-purpose` |
 | Chamar Supabase ou Vercel | o MCP ligado, pelo nome real |
+| Postgres com Drizzle | código e SQL no repositório. Sem MCP |
 
 Sem AskUserQuestion, ou em modo automático, a pergunta vai no chat, uma por vez.

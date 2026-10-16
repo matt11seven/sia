@@ -1,17 +1,19 @@
 ---
 name: revisar
 description: >
-  Use quando uma parte ou um site ficou pronto no código e antes de dizer que
-  pode ir ao ar ou juntar na branch principal. Confere primeiro o combinado,
-  depois a cara do site, depois a qualidade. Gatilhos: "revisa", "tá certo?",
+  Use quando uma parte ou um sistema ficou pronto no código e antes de dizer
+  que pode ir para outras pessoas ou juntar na branch principal. Confere
+  primeiro o combinado, depois a cara, depois a qualidade. Sem tela, a cara
+  não cobre cor.
+  Gatilhos: "revisa", "tá certo?",
   "code review", "antes de publicar".
 ---
 
-> Adaptado de obra/superpowers, skill `requesting-code-review`, commit `8ca22dba`, licença MIT. Duas passadas: o combinado, depois a qualidade. A segunda passada do SIA inclui a cara do site.
+> Adaptado de obra/superpowers, skill `requesting-code-review`, commit `8ca22dba`, licença MIT. Duas passadas: o combinado, depois a qualidade. A segunda passada lê a cara. Sem tela, não cobre cor.
 
 # Revisar
 
-Com a pessoa, siga "Como falar" em `comecar`. Não diga o nome desta skill. Uma frase de onde estamos, depois a pergunta ou o que há para olhar.
+Com a pessoa, siga "Como falar" em `comecar`. Não diga o nome desta skill. Abra com **Etapa: a conferência**, depois uma frase de onde estamos, depois a pergunta ou o que há para olhar.
 
 ## A lei
 
@@ -24,7 +26,7 @@ Obrigatório ao fim da lista de `fazer`, antes de `publicar`, e antes de juntar 
 ## As duas passadas
 
 1. **Combinado.** Cada prova de `docs/sia/combinado.md` tem teste que você viu falhar e passar, ou está escrita como fora desta rodada. O que a pessoa vê (quem vê o quê, estados vazio e erro) está no código, não só no texto.
-2. **Cara e qualidade.** Se houve tela, `docs/sia/visual.md` manda em cor, letra e espaço. Depois: nome, responsabilidade do arquivo, segredo fora do browser, dado de uma pessoa invisível para outra.
+2. **Cara e qualidade.** `docs/sia/visual.md` manda. Se disser sem tela, não cobre cor. Se houver tela, cor, letra e espaço. Dois arquivos para a mesma peça são achado grave. A mesma regra de negócio em dois lugares é achado grave: preço, prazo, quem vê o quê ou o cálculo copiados. `.env` acompanhado pelo Git é achado grave. `.env.example` com valor também. Depois: nome, responsabilidade do arquivo, segredo fora do browser, dado de uma pessoa invisível para outra na consulta do servidor, entrada validada antes de gravar. Botão que salva, envia ou apaga precisa ficar desabilitado enquanto a ação corre.
 
 Se houver ferramenta de subagente, mande um revisor com o caminho do combinado, do plano, do visual e o intervalo de commits. Sem subagente, faça você mesmo numa passada separada, depois da última parte, e diga que foi revisão do mesmo autor, mais fraca.
 
@@ -42,7 +44,7 @@ git merge-base HEAD main || git rev-list --max-parents=0 HEAD
 - Miúdo: anota em `docs/sia/andamento.md` e na mensagem. Não entra na correção desta passada.
 - Revisor errado: discorde com o teste ou o trecho que mostra o contrário.
 
-A nota do revisor não é a nota final. A nota é o que a pessoa que usa o site leva se isso for para o ar.
+A nota do revisor não é a nota final. A nota é o que quem usa o sistema leva se isso passar a valer.
 
 ## Desculpas
 

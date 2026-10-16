@@ -1,6 +1,12 @@
 references/superpowers/
 references/caveman/
 references/ui-ux-pro-max-skill/
+references/aiox-core/
+references/vibe-coding-toolkit/
+.interno/
+graphify-out/
 .DS_Store
 *.pyc
 __pycache__/
+docs/contexto/*
+!docs/contexto/README.md

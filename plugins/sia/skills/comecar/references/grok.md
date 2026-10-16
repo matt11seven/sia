@@ -16,3 +16,4 @@ O `SessionStart` não entrega texto. Esta description e as outras skills é que 
 | Disparar um subagente | spawn_subagent, só quando a parte for independente. Na v1 o padrão é a própria sessão |
 | Abrir uma página | as ferramentas de browser, se existirem. Senão, diga o que ficou sem prova |
 | Chamar Supabase ou Vercel | search_tool e depois use_tool, com o schema real. Sem schema, não chute o nome do argumento |
+| Postgres com Drizzle | código e SQL no repositório. Sem MCP |
